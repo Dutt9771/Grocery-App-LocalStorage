@@ -26,7 +26,7 @@ export class ProfilenavComponent {
   CheckPath() {
     this.router.events.subscribe((res: any) => {
       if (res.url) {
-        console.log('Res URL', res.url);
+        // console.log('Res URL', res.url);
         this.currentPath = res.url;
         if (this.currentPath == '/front/user/user-profile/manageaddress') {
           this.Title = 'Manage Address';

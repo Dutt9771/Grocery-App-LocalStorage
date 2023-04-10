@@ -59,6 +59,7 @@
               <th scope="col">Quantity</th>
               <th scope="col">Product Amount</th>
               <th scope="col">Discount Amount</th>
+              <th scope="col">Total Product Amount</th>
             </tr>
           </thead>
           <tbody class="table-group-divider">
@@ -68,6 +69,7 @@
               <td>{{ item.qty }}</td>
               <td>{{ item.product_amount }}</td>
               <td>{{ item.discount_amount }}</td>
+              <td>{{ item.product_amount * item.qty }}</td>
             </tr>
           </tbody>
         </table>

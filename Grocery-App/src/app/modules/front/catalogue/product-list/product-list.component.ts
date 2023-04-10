@@ -33,15 +33,15 @@ export class ProductListComponent implements OnInit {
     this.selectedCategory = this.defaultCategory;
   }
   category: any;
-
+  product_quantity:any
   filterValue: any;
   productArray: any = [];
 
   filteredItems: any = [];
   Product_Arr: any = [];
-  category_path;
+  category_path:any;
   categories: any;
-  GetProductByCategory(encryption) {
+  GetProductByCategory(encryption:any) {
     this.productservice.getProductByCategoryId(encryption).subscribe({
       next: (Product_Res: any) => {
         if (Product_Res) {
@@ -165,6 +165,7 @@ export class ProductListComponent implements OnInit {
       }
       })
   }
+  quantity = 1;
   ngOnInit() {  
     this.Search_In_All_Product()
     this.router.events.subscribe((res: any) => {
@@ -176,6 +177,11 @@ export class ProductListComponent implements OnInit {
       if (params) {
         this.category_path = params.get('id');
         console.log('Category path', this.category_path);
+        
+          this.product_quantity = {
+            category:this.category_path,
+            quantity: this.quantity,
+          };
         this.GetAllCategory();
       }
     });
@@ -323,25 +329,10 @@ export class ProductListComponent implements OnInit {
   Find_Customer_Cart: any;
   Find_Customer_Cart_Arr: any = [];
   Showcart() {
-    this._cartservice.ShowCart().subscribe((res) => {
-      if (res) {
-        this.ShowcartArr = res;
-        this.Find_Customer_Cart = this.ShowcartArr.find(
-          (item) => item.id === this.Customer_Id
-        );
-        console.log('Find Customer', this.Find_Customer_Cart);
-        this.Find_Customer_Cart_Arr = this.Find_Customer_Cart.items;
-        console.log('Find_Customer_Cart_Arr', this.Find_Customer_Cart_Arr);
-      }
-    });
-    console.log('ShowcartArr', this.ShowcartArr);
-    return this.ShowcartArr;
+  
   }
 
-  quantity = 1;
-  product_quantity = {
-    quantity: this.quantity,
-  };
+  
   Add_cart(i, product) {
     console.log('ShowCartArr', this.ShowcartArr);
     console.log('Product', product);

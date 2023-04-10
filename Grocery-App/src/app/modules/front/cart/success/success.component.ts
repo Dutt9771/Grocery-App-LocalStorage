@@ -16,47 +16,14 @@ export class SuccessComponent {
     console.log("Customer_Id",this.Customer_Id)
   }
      ngOnInit(){ window.scrollTo(0,0)
-      
-      // this.Showcart()
-    setTimeout(()=>{
+      this._cartservice.Delete_User_Cart_LocalStorage(this.User_Details.username)
+
+      this._cartservice.getItemCount()
+      this._cartservice.Subtotal()
+      setTimeout(()=>{
+      this._cartservice.getItemCount()
+      this._cartservice.Subtotal()
       this.route.navigate(['/home'])
     },6000);
-  }
-  ShowcartArr:any=[]
-  Showcart(){
-    const sampleData = {
-      id: this.Customer_Id,
-      items: [
-      ]
-    }
-    this._cartservice.ShowCart().subscribe((res)=>{
-      if(res){
-
-        this.ShowcartArr=res
-        console.log("ShowcartArr",this.ShowcartArr)
-      }
-      
-    })
-    this.route.events.subscribe((res:any)=>{
-      if(res.url){
-        
-        let FindCustomer=this.ShowcartArr.find((item)=>item.id=== this.Customer_Id)
-        console.log("FindCustomer",FindCustomer)
-          if(!FindCustomer){
-    console.log("NOt User")
-            this._cartservice.AddCart(sampleData).subscribe(res=>{
-              if(res){
-
-                console.log(
-                  "sampleData Of Cart",sampleData
-                  )
-                  this._cartservice.getItemCount()
-                  this._cartservice.Subtotal()
-                }
-              })
-            }
-        }
-      })
-      // return this.ShowcartArr
   }
 }

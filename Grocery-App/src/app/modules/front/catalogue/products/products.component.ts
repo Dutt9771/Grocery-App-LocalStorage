@@ -42,19 +42,7 @@ export class ProductsComponent {
   Find_Customer_Cart: any;
   Find_Customer_Cart_Arr: any = [];
   Showcart() {
-    this._cartservice.ShowCart().subscribe((res) => {
-      if (res) {
-        this.ShowcartArr = res;
-        this.Find_Customer_Cart = this.ShowcartArr.find(
-          (item) => item.id === this.Customer_Id
-        );
-        // console.log("Find Customer",this.Find_Customer_Cart)
-        this.Find_Customer_Cart_Arr = this.Find_Customer_Cart.items;
-        // console.log("Find_Customer_Cart_Arr",this.Find_Customer_Cart_Arr)
-      }
-    });
-    // console.log("ShowcartArr",this.ShowcartArr)
-    return this.ShowcartArr;
+    
   }
   GetProducts() {
     this.productservice.getALLProducts().subscribe({

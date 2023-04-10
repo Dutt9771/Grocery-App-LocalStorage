@@ -68,28 +68,13 @@ export class LoginComponent {
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
     this.Customer_Id = this.User_Details.id;
     console.log('Customer_Id', this.Customer_Id);
-    const sampleData = {
-      id: this.Customer_Id,
-      items: [],
-    };
-    this._cartservice.ShowCart().subscribe((res) => {
-      if (res) {
-        this.ShowcartArr = res;
-        console.log('ShowcartArr', this.ShowcartArr);
-        let FindCustomer = this.ShowcartArr.find(
-          (item) => item.id === this.Customer_Id
-        );
-        console.log('FindCustomer', FindCustomer);
-        if (!FindCustomer) {
+   
           // console.log("NOt User")
-          this._cartservice.AddCart(sampleData).subscribe((res) => {
-            if (res) {
-              console.log(res);
+         
               this._cartservice.getItemCount();
               this._cartservice.Subtotal();
-            }
-          });
-        }
+           
+        
 
         // for(let i=0;i<this.ShowcartArr.length;i++) {
 
@@ -97,9 +82,7 @@ export class LoginComponent {
 
         // }
       }
-    });
-    // return this.ShowcartArr
-  }
+
   // Get_User_Details(){
   //     this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
   //     console.log("User_Details",User_details_res.data)

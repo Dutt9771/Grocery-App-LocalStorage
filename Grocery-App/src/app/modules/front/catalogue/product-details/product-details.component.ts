@@ -89,7 +89,7 @@ export class ProductDetailsComponent {
 
       this.Customer_Id = this.User_Details.id;
       console.log('Customer_Id', this.Customer_Id);
-      this.Showcart();
+
       this.encryption(this.product_id);
     // console.log("User_Details",this.User_Details)
     console.log('Product_item', this.filteredItems);
@@ -143,21 +143,7 @@ export class ProductDetailsComponent {
   QuantityErrMsg: string = '';
   existing_Product: any = [];
   Find_Customer_Cart_Arr: any;
-  Showcart() {
-    this._cartservice.ShowCart().subscribe((res) => {
-      if (res) {
-        this.ShowcartArr = res;
-        this.Find_Customer_Cart = this.ShowcartArr.find(
-          (item) => item.id === this.Customer_Id
-        );
-        console.log('Find Customer', this.Find_Customer_Cart);
-        this.Find_Customer_Cart_Arr = this.Find_Customer_Cart.items;
-        console.log('Find_Customer_Cart_Arr', this.Find_Customer_Cart_Arr);
-      }
-    });
-    console.log('ShowcartArr', this.ShowcartArr);
-    return this.ShowcartArr;
-  }
+  
   product_Existing: any;
   Find_Customer_Cart: any;
 
@@ -201,6 +187,6 @@ export class ProductDetailsComponent {
       this.QuantityErrMsg = 'Please Enter Valid Quantity';
       this.toastr.error('Please Enter Valid Quantity');
     }
-    this.Showcart();
+
   }
 }

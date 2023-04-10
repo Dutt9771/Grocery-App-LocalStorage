@@ -18,64 +18,64 @@ baseUrl=environment.baseUrl;
 resname=environment.resname;
 add_order=environment.orders_routes.add_order;
 get_order_by_id=environment.orders_routes.get_order_by_id
-  addcart=[]
+
 
   private cartItemsSubject = new BehaviorSubject([]);
   private cartCount = new BehaviorSubject(0);
 
-  AddCart(data:any){
-    try {
-      return this.http.post(this.baseurl+this.resname,data)
-    } catch (error:any) {
-      return throwError(()=>new Error(error))
-    }
-  }
-  EditCart(customer_id,data:any){
-    try {
-      return this.http.put(this.baseurl+this.resname+'/'+customer_id,data)
-    } catch (error:any) {
-      return throwError(()=>new Error(error))
-    }
-  }
-  DeletCart_Using_Put(customer_id,data:any,index){
-    try {
-      data.items.splice(index,1)
-      return this.http.put(this.baseurl+this.resname+'/'+customer_id,data)
-    } catch (error:any) {
-      return throwError(()=>new Error(error))
-    }
-  }
-  url:any
-  items:any
+  // AddCart(data:any){
+  //   try {
+  //     return this.http.post(this.baseurl+this.resname,data)
+  //   } catch (error:any) {
+  //     return throwError(()=>new Error(error))
+  //   }
+  // }
+  // EditCart(customer_id,data:any){
+  //   try {
+  //     return this.http.put(this.baseurl+this.resname+'/'+customer_id,data)
+  //   } catch (error:any) {
+  //     return throwError(()=>new Error(error))
+  //   }
+  // }
+  // DeletCart_Using_Put(customer_id,data:any,index){
+  //   try {
+  //     data.items.splice(index,1)
+  //     return this.http.put(this.baseurl+this.resname+'/'+customer_id,data)
+  //   } catch (error:any) {
+  //     return throwError(()=>new Error(error))
+  //   }
+  // }
+  // url:any
+  // items:any
 
-  AddCartUserWise(customerId: number,data:any){
-    try {
-      return this.http.get(this.baseurl+this.resname+"/"+customerId).pipe(
-        mergeMap((customer: any) => {
-          const currentItemArray = customer.items;
-          currentItemArray.push(data);
+  // AddCartUserWise(customerId: number,data:any){
+  //   try {
+  //     return this.http.get(this.baseurl+this.resname+"/"+customerId).pipe(
+  //       mergeMap((customer: any) => {
+  //         const currentItemArray = customer.items;
+  //         currentItemArray.push(data);
     
-          return this.http.patch(this.baseurl+this.resname+"/"+customerId, {
-            items: currentItemArray
-          });
-        })
-      );
+  //         return this.http.patch(this.baseurl+this.resname+"/"+customerId, {
+  //           items: currentItemArray
+  //         });
+  //       })
+  //     );
 
-      // this.url= `${this.baseurl}${customerId}/items`;
-      // return this.http.patch(`this.baseurl${customerId}`,{
-      //   items: [...data]
-      // })
-    } catch (error:any) {
-      return throwError(()=>new Error(error))
-    }
-  }
-  ShowCart(){
-    try {
-    return this.http.get(this.baseurl+this.resname)
-  } catch (error:any) {
-    return throwError(()=>new Error(error))
-  }
-  }
+  //     // this.url= `${this.baseurl}${customerId}/items`;
+  //     // return this.http.patch(`this.baseurl${customerId}`,{
+  //     //   items: [...data]
+  //     // })
+  //   } catch (error:any) {
+  //     return throwError(()=>new Error(error))
+  //   }
+  // }
+  // ShowCart(){
+  //   try {
+  //   return this.http.get(this.baseurl+this.resname)
+  // } catch (error:any) {
+  //   return throwError(()=>new Error(error))
+  // }
+  // }
 
   DelectProduct(id:any){
     try {
@@ -140,17 +140,15 @@ Subtotal(){
   
   this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
   if(this.User_Details){
-    this.Customer_Id=this.User_Details.id
-    // console.log("Customer_Id",this.Customer_Id)
-  this.ShowCart().subscribe((res)=>{
-    this.cartc=res
-    this.Find_Customer_Cart=this.cartc.find((item)=>item.id=== this.Customer_Id)
+
+    let Merge = JSON.parse(localStorage.getItem('Cart'));
+    this.Find_Customer_Cart=Merge.find((user:any)=>user.username==this.User_Details.username)
+
     if(this.Find_Customer_Cart){
 
     // console.log("Find_Customer_Cart",this.Find_Customer_Cart)
     this.Customer_Cart=this.Find_Customer_Cart.items
     // console.log("Customer_Cart",this.Customer_Cart)
-    const cartLength = this.cartc.length;
     // this.subtotalSource.next
     let cartsubtotal:number=0
     for(let i=0;i<this.Customer_Cart.length;i++){
@@ -164,7 +162,7 @@ Subtotal(){
     }
     this.subtotalSource.next(cartsubtotal);
   }
-  })
+
 }
 }
 
@@ -188,14 +186,13 @@ User_Details:any
 getItemCount(){
   this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
   if(this.User_Details){
-    this.Customer_Id=this.User_Details.id
-    // console.log("Customer_Id",this.Customer_Id)
-    this.ShowCart().subscribe((res)=>{
-      this.cartc=res
+    if(this.User_Details){
+
+      let Merge = JSON.parse(localStorage.getItem('Cart'));
+      this.Find_Customer_Cart=Merge.find((user:any)=>user.username==this.User_Details.username)
       // console.log("cartc",this.cartc.length)
       // this.cartcount.next(this.cartc.length);
       // console.log("cartcount",this.cartcount)
-      this.Find_Customer_Cart=this.cartc.find((item)=>item.id=== this.Customer_Id)
       // console.log("Find_Customer_Cart",this.Find_Customer_Cart)
       if(this.Find_Customer_Cart){
     this.Customer_Cart=this.Find_Customer_Cart.items
@@ -203,7 +200,8 @@ getItemCount(){
     const cartLength = this.Customer_Cart.length;
   this.cartLengthSubject.next(cartLength);
 }
-  })
+
+}
 }
 }
   
@@ -313,6 +311,49 @@ ADD_Cart_User_Wise_Quantity(username:any,data:any,id:any){
     this.toastr.info('Already Added Please Go to Cart', data.title);
     localStorage.setItem("Cart", JSON.stringify(Merge));
   }
+}
+Quantity_Plus(username:any,data:any){
+  let Merge = JSON.parse(localStorage.getItem('Cart'));
+  let cart=Merge.find((user:any)=>user.username==username)
+  let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==data.id)
+ 
+     duplicate.quantity=duplicate.quantity+1
+     console.log("Merge",Merge)
+     // this.toastr.info('Already Added Please Go to Cart', data.title);
+     localStorage.setItem("Cart", JSON.stringify(Merge));
+}
+Quantity_Minus(username:any,data:any){
+
+ 
+    let Merge = JSON.parse(localStorage.getItem('Cart'));
+    let cart=Merge.find((user:any)=>user.username==username)
+    let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==data.id)
+   if(duplicate.quantity>0){
+  
+     duplicate.quantity=duplicate.quantity-1
+     console.log("Merge",Merge)
+     // this.toastr.info('Already Added Please Go to Cart', data.title);
+     localStorage.setItem("Cart", JSON.stringify(Merge));
+    }
+}
+Delete_Cart_LocalStorage(username:any,data:any){
+ 
+    let Merge = JSON.parse(localStorage.getItem('Cart'));
+    let cart=Merge.find((user:any)=>user.username==username)
+    let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==data.id)
+    let Index=cart.items.indexOf(duplicate)
+    console.log("cart indexOf", cart.items.indexOf(duplicate))
+    console.log("cart.items.splice(Index,1)", cart.items.splice(Index,1))
+    cart.items.splice(Index,1)
+    localStorage.setItem("Cart", JSON.stringify(Merge));
+}
+Delete_User_Cart_LocalStorage(username:any){
+    let Merge = JSON.parse(localStorage.getItem('Cart'));
+    let cart=Merge.find((user:any)=>user.username==username)
+    cart.items=[]
+    console.log("cart.items", cart.items)
+    console.log("Merge", Merge)
+    localStorage.setItem("Cart", JSON.stringify(Merge));
 }
 
 }

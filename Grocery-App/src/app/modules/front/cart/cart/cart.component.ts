@@ -28,7 +28,6 @@ export class CartComponent {
   cartEmptyShow=true
   data:any
   dateFormat:any
-  
   Customer_Id:number
 User_Details:any
 username:string
@@ -46,18 +45,14 @@ var getDay = date.toLocaleString("default", { day: "2-digit" });
 console.log("dateFormat",JSON.stringify(this.dateFormat));
     this.filteredItems=this._productservice.getProducts()
   
-    this._cartservice.ShowCart().subscribe((res)=>{
-      if(res){
+    setTimeout(() => {
+      this.loading=false
+    }, 1000);
+    let Merge = JSON.parse(localStorage.getItem('Cart'));
+    this.Find_Customer_Cart=Merge.find((user:any)=>user.username==this.User_Details.username)
 
-        this.cart=res
-      setTimeout(() => {
-        this.loading=false
-      }, 1500);
-    }
-
-      this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
+    this.Customer_Cart=this.Find_Customer_Cart.items
       console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-      this.Customer_Cart=this.Find_Customer_Cart.items
       console.log("Customer_Cart",this.Customer_Cart)
 
       // Category Wise
@@ -75,45 +70,13 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
       }, []);
       console.log(this.groupedProducts,"groupedProducts")
       console.log("cart",this.cart)
-      // this._cartservice.cartSubject.subscribe(cart => {
-      //   this.cartItemCount = cart.length;
-      // });
-      
-      
-      
-     })
-    
-  
-  
-  
-  
-    // this._cartservice.getCartItems().subscribe(items => {
-    //   this.cartItems = items;
-    //   console.log(this.cartItems)
-    // });
   }
   Find_Customer_Cart:any
   Customer_Cart:any=[]
   ngAfterViewInit(){
     this.CartEmptyShow_Data()
-    this._cartservice.ShowCart().subscribe((res)=>{
-      if(res){
-        this.cart=res
-        console.log("cart",this.cart)
-        //       for(let i=0;i<this.cart.length;i++) {
-          //   console.log("cart[i]",this.cart[i])
-          // }
-      // Category wise 
-      this._cartservice.cartSubject.subscribe(res => {
-        if(res){
-          console.log("Before Cart",res)
-          this.cart.splice(1,1);
-          console.log("After Cart",this.cart)
-        }
-      });
-    }
-    })
-    console.log("Subtotal From Cart",this.Subtotal())
+   
+    // console.log("Subtotal From Cart",this.Subtotal())
    }
   //Badge
   
@@ -124,90 +87,16 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
   quantity=1
   Obj:any
   Subtotal_Per_Prod:any
-  quantitymin(index:any,productindex:any){
-    // console.log("Quantity",this.groupedProducts[index].cart[productindex].quantity);
-    // console.log(this.cart[productindex].amount)
+  quantitymin(index:any,productindex:any,product:any){
 
     if(this.groupedProducts[index].cart[productindex].quantity>1){
-      this.groupedProducts[index].cart[productindex].quantity-=1  
-      
-      this._cartservice.ShowCart().subscribe((res)=>{
-        if(res){
-
-          this.cart=res
-          console.log("cart",this.cart)
-          //       for(let i=0;i<this.cart.length;i++) {
-            //   console.log("cart[i]",this.cart[i])
-            // }
-            this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
-            console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-            
-            this.Customer_Cart=this.Find_Customer_Cart.items
-            console.log("Customer_Cart",this.Customer_Cart)
-            
-            this.Customer_Index=this.cart.indexOf(this.Find_Customer_Cart)
-            console.log("this.cart.indexOf(this.Find_Customer_Cart)",this.cart.indexOf(this.Find_Customer_Cart))
-            console.log("this.cart[this.Customer_Index].items[productindex]",this.cart[this.Customer_Index].items[productindex])
-            
-            this.cart[this.Customer_Index].items[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-            console.log("cart[productindex]",this.cart[this.Customer_Index].items[productindex])
-            console.log("Customer_Cart",this.Customer_Cart)
-            this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index]).subscribe((cart)=>{
-              if(cart){
-              // console.log("cart in Service",cart)
-              // console.log("Product Index",productindex)
-              console.log("RES",res)
-            }
-            })
-          }
-          })
-      
-      // console.log("Subtotal From Cart",this.Subtotal())
-  
+      this._cartservice.Quantity_Minus(this.User_Details.username,product)
+      this.groupedProducts[index].cart[productindex].quantity-=1    
   }
   }
-  quantitymax(index,productindex){
-    
-    console.log("index==>",index,"  product index==>",productindex)
-      // console.log(this.cart[productindex].amount)
-      this.groupedProducts[index].cart[productindex].quantity+=1
-      this._cartservice.ShowCart().subscribe((res)=>{
-        if(res){
-
-          this.cart=res
-          console.log("cart",this.cart)
-          //       for(let i=0;i<this.cart.length;i++) {
-          //   console.log("cart[i]",this.cart[i])
-          // }
-          this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
-          console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-          
-          this.Customer_Cart=this.Find_Customer_Cart.items
-          console.log("Customer_Cart",this.Customer_Cart)
-          
-          this.Customer_Index=this.cart.indexOf(this.Find_Customer_Cart)
-          console.log("this.cart.indexOf(this.Find_Customer_Cart)",this.cart.indexOf(this.Find_Customer_Cart))
-          console.log("this.cart[this.Customer_Index].items[productindex]",this.cart[this.Customer_Index].items[productindex])
-          
-          this.cart[this.Customer_Index].items[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-          console.log("cart[productindex]",this.cart[this.Customer_Index].items[productindex])
-          console.log("cart[productindex]",this.cart[this.Customer_Index])
-          console.log("cart[productindex]",this.cart[this.Customer_Index])
-          
-          this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index]).subscribe((cart)=>{
-            if(cart){
-
-              // console.log("cart in Service",cart)
-            // console.log("Product Index",productindex)
-            console.log("RES",res)
-          }
-          })
-        }
-          })
-        
-        // this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-  
-  
+  quantitymax(index:any,productindex:any,product:any){
+    this._cartservice.Quantity_Plus(this.User_Details.username,product)
+      this.groupedProducts[index].cart[productindex].quantity+=1  
   }
   
   GST:any
@@ -267,43 +156,9 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
 
   DelectProduct(id:any,index:any,productindex:any,product){
     
-//       this.clickedItem= this.filteredItems[id]
-// console.log("ID",id)
-// console.log("this.filteredItems[id]",this.filteredItems[id])
-//       this._cartservice.DelectProduct(id).subscribe((res)=>{
-//         if (res) {
-//           console.log("Deleted Group Product Arr",this.groupedProducts[index].cart.filter((product)=>product.id != id))
-//           this._cartservice.ShowCart().subscribe((res)=>{
-//             console.log("res",res) 
-//             this.cartItemCount=res
-//             // this.Cartlength=this.cartItemCount.length
-//             this._cartservice.cartItemCount$.next(this.cartItemCount.length);
-//           })
-//         this.toastr.success('Remove to cart',product.name);
-
-//       return this.groupedProducts[index].cart.splice(productindex,1)
-
-
-// }
-// console.log("this.Find_Customer_Cart.items.splice(productindex,1)",this.Find_Customer_Cart.items.splice(productindex,1))
-// this.Find_Customer_Cart.items.splice(productindex,1)
-this._cartservice.DeletCart_Using_Put(this.Customer_Id,this.Find_Customer_Cart,productindex).subscribe((cart)=>{
-  if(cart){
-
-    // console.log("cart in Service",cart)
-    
-    // console.log("Product Index",productindex)
-    console.log("cart",cart)
-    this._cartservice.getItemCount()
-    this.Subtotal()
-    // return this.groupedProducts
-  }
-  })
-  return this.groupedProducts[index].cart.splice(productindex,1)
+    this._cartservice.Delete_Cart_LocalStorage(this.User_Details.username,product)
+    this.groupedProducts[index].cart.splice(productindex,1)
  
-  // })
-    
-   
   }
   product:any
   ProductArr=[]

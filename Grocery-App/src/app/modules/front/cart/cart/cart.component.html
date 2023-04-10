@@ -48,7 +48,7 @@
           *ngIf="group.category != ''"
         >
           {{ group.category }} &nbsp;&nbsp;<span>{{ group.cart.length }} </span
-          >Items Subtotal: {{ Subtotal_Per_Category(group) | currency }}
+          >Items Subtotal: {{ Subtotal_Per_Category(group) | currency : "INR" }}
         </td>
       </tr>
 
@@ -69,7 +69,7 @@
         <td>
           <button
             class="btn btn-outline-light btn-transparent"
-            (click)="quantitymin(y, i)"
+            (click)="quantitymin(y, i,product)"
           >
             <img
               width="20"
@@ -80,7 +80,7 @@
           {{ product.quantity }}
           <button
             class="btn btn-outline-light btn-transparent"
-            (click)="quantitymax(y, i)"
+            (click)="quantitymax(y, i,product)"
           >
             <img
               width="20"
@@ -118,7 +118,7 @@
 
 <div
   class="table-responsive container d-flex justify-content-end mt-3 mb-3"
-  *ngIf="cart.length != 0 && Subtotal()"
+  *ngIf="Customer_Cart.length != 0 && Subtotal()"
 >
   <table>
     <tr>

@@ -63,16 +63,7 @@ export class HomeComponent {
   }
   ShowcartArr: any = [];
   Showcart() {
-    const sampleData = {
-      id: this.Customer_Id,
-      items: [],
-    };
-    this._cartservice.ShowCart().subscribe((res: any) => {
-      if (res) {
-        this.ShowcartArr = res;
-        console.log('ShowcartArr', this.ShowcartArr);
-      }
-    });
+  
     this.router.events.subscribe((res: any) => {
       if (res.url) {
         let FindCustomer = this.ShowcartArr.find(
@@ -81,13 +72,10 @@ export class HomeComponent {
         console.log('FindCustomer', FindCustomer);
         if (!FindCustomer) {
           // console.log("NOt User")
-          this._cartservice.AddCart(sampleData).subscribe((res: any) => {
-            if (res) {
-              console.log('sampleData Of Cart', sampleData);
+          
               this._cartservice.getItemCount();
               this._cartservice.Subtotal();
-            }
-          });
+          
         }
       }
     });
