@@ -84,13 +84,13 @@ export class ProductDetailsComponent {
         window.scrollTo(0, 0);
       }
     });
+    this.encryption(this.product_id);
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
     if(this.User_Details){
 
       this.Customer_Id = this.User_Details.id;
       console.log('Customer_Id', this.Customer_Id);
 
-      this.encryption(this.product_id);
     // console.log("User_Details",this.User_Details)
     console.log('Product_item', this.filteredItems);
     // console.log('Product_item', this.filteredItems);
@@ -99,11 +99,11 @@ export class ProductDetailsComponent {
   
     console.log("cart",cart)
     let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==this.product_id)
-    console.log("duplicate",duplicate)
     // this.existing_Product.quantity = this.existing_Product.quantity + 1;
-    this.product_quantity.quantity = duplicate.quantity;
     if(duplicate){
+      this.product_quantity.quantity = duplicate.quantity;
       this.QuantityErrMsg="Product is Existing"
+      console.log("duplicate",duplicate)
     }
   }
   }
@@ -133,7 +133,7 @@ export class ProductDetailsComponent {
   //       }
   //   }
   product_quantity = {
-    customer_id: 3,
+    category:"all",
     quantity: this.quantity,
   };
 
@@ -150,9 +150,10 @@ export class ProductDetailsComponent {
   Add_cart(product: any) {
     console.log('ShowCartArr', this.ShowcartArr);
     console.log('Product', product);
+if(this.User_Details){
 
-
-    if (this.product_quantity.quantity > 0) {
+  
+  if (this.product_quantity.quantity > 0) {
       console.log('Show Cart Arr', this.ShowcartArr);
 
       for (let i = 0; i < this.filteredItems.length; i++) {
@@ -188,5 +189,20 @@ export class ProductDetailsComponent {
       this.toastr.error('Please Enter Valid Quantity');
     }
 
+  }
+    else{
+      for (let i = 0; i < this.filteredItems.length; i++) {
+        this.ShowcartArr;
+        // this.filteredItems[i].moneyOfferPrice=this.product_quantity.quantity
+        this.ProductObj = this.filteredItems[i];
+        this.ProductAddobj = Object.assign(
+          this.ProductObj,
+          this.product_quantity
+        );
+        console.log('OBJ', this.ProductAddobj);
+      }
+
+        this._cartservice.Guest_User(this.ProductAddobj)
+    }
   }
 }

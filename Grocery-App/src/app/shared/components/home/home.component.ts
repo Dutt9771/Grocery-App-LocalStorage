@@ -36,12 +36,15 @@ export class HomeComponent {
   recentlyAdded: any;
   Customer_Id: number;
   User_Details: any;
+  loading=true
   ngOnInit() {
     window.scrollTo(0, 0);
-
-    // setTimeout(() => {
-    //   this.loading=false
-    // }, 1500);
+    this._cartservice.Guest_cart_Generate()
+    this._cartservice.getItemCount()
+      this._cartservice.Subtotal()
+    setTimeout(() => {
+      this.loading=false
+    }, 1500);
 
     this.topsells = this._ProductsService.Top_Sells();
     this.toprated = this._ProductsService.Top_Rated();
@@ -56,8 +59,11 @@ export class HomeComponent {
 
   ngAfterViewInit() {
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
-    this.Customer_Id = this.User_Details.id;
+    if(this.User_Details){
+
+      this.Customer_Id = this.User_Details.id;
     console.log('Customer_Id', this.Customer_Id);
+    }
 
     // this.Showcart()
   }

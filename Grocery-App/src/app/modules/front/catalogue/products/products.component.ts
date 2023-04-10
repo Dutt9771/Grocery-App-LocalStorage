@@ -62,14 +62,16 @@ export class ProductsComponent {
   }
   quantity = 1;
   product_quantity = {
+    category:"all",
     quantity: this.quantity,
   };
   Add_cart(i, product) {
     // console.log("ShowCartArr",this.ShowcartArr)
     // console.log("Product",product)
-  
-    // console.log("Existing Product",this.existing_Product)
+  if(this.User_Details){
 
+    // console.log("Existing Product",this.existing_Product)
+    
     // console.log("Existing Product",this.existing_Product)
 
       // console.log("Filtered Item Arr",this.filteredItems[i])
@@ -97,5 +99,13 @@ export class ProductsComponent {
       this.Showcart();
             this._cartservice.getItemCount();
             this._cartservice.Subtotal();
+          }else{
+            this.ProductAddobj = this.filteredItems[i];
+      this.ProductAddobj = Object.assign(
+        this.filteredItems[i],
+        this.product_quantity
+      );
+            this._cartservice.Guest_User(this.ProductAddobj)
+          }
   }
 }

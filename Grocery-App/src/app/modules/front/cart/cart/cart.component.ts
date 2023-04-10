@@ -30,46 +30,64 @@ export class CartComponent {
   dateFormat:any
   Customer_Id:number
 User_Details:any
+Guest_Cart:any=[]
 username:string
     ngOnInit(){ 
       window.scrollTo(0,0)
+      this.Guest_Cart=JSON.parse(sessionStorage.getItem("Guest_Cart"))
+      // console.log("Guesut Cart",this.Guest_Cart)
     this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
-    this.username=this.User_Details.username
-    this.Customer_Id=this.User_Details.id
-    console.log("Customer_Id",this.Customer_Id)
-    let date = new Date()
-    var getYear = date.toLocaleString("default", { year: "numeric" });
-    var getMonth = date.toLocaleString("default", { month: "2-digit" });
-var getDay = date.toLocaleString("default", { day: "2-digit" });
-    this.dateFormat = getYear + "-" + getMonth + "-" + getDay;
-console.log("dateFormat",JSON.stringify(this.dateFormat));
+    if(this.User_Details){
+
+      this.username=this.User_Details.username
+      this.Customer_Id=this.User_Details.id
+      console.log("Customer_Id",this.Customer_Id)
+    }
+    this.Date()
+// console.log("dateFormat",JSON.stringify(this.dateFormat));
     this.filteredItems=this._productservice.getProducts()
   
     setTimeout(() => {
       this.loading=false
     }, 1000);
     let Merge = JSON.parse(localStorage.getItem('Cart'));
-    this.Find_Customer_Cart=Merge.find((user:any)=>user.username==this.User_Details.username)
+    if(Merge && this.User_Details){
 
-    this.Customer_Cart=this.Find_Customer_Cart.items
-      console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-      console.log("Customer_Cart",this.Customer_Cart)
-
-      // Category Wise
-      
-      this.groupedProducts = this.Customer_Cart.reduce((acc, product) => {
+      this.Find_Customer_Cart=Merge.find((user:any)=>user.username==this.User_Details.username)
+      if(this.Find_Customer_Cart){
+        this.Customer_Cart=this.Find_Customer_Cart.items
+        console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+        console.log("Customer_Cart",this.Customer_Cart)
         
-        const existingCategory = acc.find(group => group.category === product.category);
-        if (existingCategory) {
-          existingCategory.cart.push(product);
-          // this.groupedProducts=this.cartlength
-        } else {
-          acc.push({ category: product.category, cart: [product] });
-        }
-        return acc;
-      }, []);
-      console.log(this.groupedProducts,"groupedProducts")
-      console.log("cart",this.cart)
+        this.Category_wise_Filter(this.Customer_Cart)
+      }
+    }
+    else{
+        console.log("this.Guest_Cart[0].items",this.Guest_Cart[0].items)
+        this.Category_wise_Filter(this.Guest_Cart[0].items)
+            }
+  }
+  Date(){
+    let date = new Date()
+    var getYear = date.toLocaleString("default", { year: "numeric" });
+    var getMonth = date.toLocaleString("default", { month: "2-digit" });
+var getDay = date.toLocaleString("default", { day: "2-digit" });
+    this.dateFormat = getYear + "-" + getMonth + "-" + getDay;
+  }
+  Category_wise_Filter(Arr:any){
+    this.groupedProducts = Arr.reduce((acc, product) => {
+          
+      const existingCategory = acc.find(group => group.category === product.category);
+      if (existingCategory) {
+        existingCategory.cart.push(product);
+        // this.groupedProducts=this.cartlength
+      } else {
+        acc.push({ category: product.category, cart: [product] });
+      }
+      return acc;
+  }, []);
+  console.log(this.groupedProducts,"groupedProducts")
+  console.log("cart",this.cart)
   }
   Find_Customer_Cart:any
   Customer_Cart:any=[]
@@ -158,6 +176,8 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
     
     this._cartservice.Delete_Cart_LocalStorage(this.User_Details.username,product)
     this.groupedProducts[index].cart.splice(productindex,1)
+    this._cartservice.getItemCount()
+      this._cartservice.Subtotal()
  
   }
   product:any

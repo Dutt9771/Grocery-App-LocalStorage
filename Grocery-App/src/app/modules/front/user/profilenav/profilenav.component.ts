@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from 'src/app/shared/services/cart/cart.service';
 
 @Component({
   selector: 'app-profilenav',
@@ -17,7 +18,8 @@ export class ProfilenavComponent {
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private _cartservice:CartService
   ) {
     // this.currentPath = this.router.url;
     this.CheckPath();
@@ -56,12 +58,14 @@ export class ProfilenavComponent {
       sessionStorage.removeItem('Login_User');
       sessionStorage.removeItem('Register_User');
       sessionStorage.removeItem('User_Details');
-
-      // localStorage.removeItem('User_login_Token')
-      this.cookieService.delete('User_Login_Token');
-      this.router.navigate(['front/user/login']);
-      // console.log(this.email)
-      this.toastr.success('Logout Successfully');
+sessionStorage.removeItem('Guest_Cart')
+// localStorage.removeItem('User_login_Token')
+this.cookieService.delete('User_Login_Token');
+this._cartservice.getItemCount()
+this._cartservice.Subtotal()
+this.router.navigate(['front/user/login']);
+// console.log(this.email)
+this.toastr.success('Logout Successfully');
     }
   }
 }

@@ -18,12 +18,13 @@ export class SuccessComponent {
      ngOnInit(){ window.scrollTo(0,0)
       this._cartservice.Delete_User_Cart_LocalStorage(this.User_Details.username)
 
-      this._cartservice.getItemCount()
+    this._cartservice.getItemCount()
+      
       this._cartservice.Subtotal()
       setTimeout(()=>{
-      this._cartservice.getItemCount()
-      this._cartservice.Subtotal()
       this.route.navigate(['/home'])
     },6000);
   }
+  // ngDoCheck(){
+  // }
 }

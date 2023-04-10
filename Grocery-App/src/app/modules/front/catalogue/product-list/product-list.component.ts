@@ -336,8 +336,10 @@ export class ProductListComponent implements OnInit {
   Add_cart(i, product) {
     console.log('ShowCartArr', this.ShowcartArr);
     console.log('Product', product);
-    this.existing_Product = this.Find_Customer_Cart_Arr.find(
-      (item) => item.title.toLowerCase() === product.title.toLowerCase()
+    if(this.User_Details){
+
+      this.existing_Product = this.Find_Customer_Cart_Arr.find(
+        (item) => item.title.toLowerCase() === product.title.toLowerCase()
     );
     console.log('Existing Product', this.existing_Product);
     console.log('Existing Product', this.existing_Product);
@@ -353,7 +355,8 @@ export class ProductListComponent implements OnInit {
           this.product_quantity
         );
         this._cartservice.ADD_Cart_User_Wise(this.User_Details.username,this.ProductAddobj,product.id)
-        
+        this._cartservice.getItemCount()
+      this._cartservice.Subtotal()
       } else {
         console.log('id', i);
         console.log('Filtered Item Arr', this.filteredItems[i]);
@@ -363,8 +366,18 @@ export class ProductListComponent implements OnInit {
           this.product_quantity
         );
         this._cartservice.ADD_Cart_User_Wise(this.User_Details.username,this.ProductAddobj,product.id)
+        this._cartservice.getItemCount()
+        this._cartservice.Subtotal()
       }
 
     this.Showcart();
+      }else{
+        this.ProductAddobj = this.allProducts[i];
+        this.ProductAddobj = Object.assign(
+          this.ProductAddobj,
+          this.product_quantity
+        );
+        this._cartservice.Guest_User(this.ProductAddobj)
+      }
   }
 }

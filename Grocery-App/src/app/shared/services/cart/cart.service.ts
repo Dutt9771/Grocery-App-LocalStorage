@@ -152,17 +152,35 @@ Subtotal(){
     // this.subtotalSource.next
     let cartsubtotal:number=0
     for(let i=0;i<this.Customer_Cart.length;i++){
-      cartsubtotal+=this.Customer_Cart[i].quantity*this.Customer_Cart[i].amount
-      // console.log("this.cartsubtotal",this.cartc[i].quantity*this.cartc[i].amount)
-      // console.log("this.cartsubtotal",this.cartc[i].amount)
-      // console.log("this.cartsubtotal",this.cartc[i].quantity)
-      // console.log("this.cartcartsubtotalsubtotal",this.cartc[i])
-      // console.log("this.cartsubtotal",this.cartc)
-      // console.log("this.cartsubtotal",cartsubtotal)
+      if(this.Customer_Cart[i].quantity && this.Customer_Cart[i].amount){
+
+        cartsubtotal+=this.Customer_Cart[i].quantity*this.Customer_Cart[i].amount
+        // console.log("this.cartsubtotal",this.cartc[i].quantity*this.cartc[i].amount)
+        // console.log("this.cartsubtotal",this.cartc[i].amount)
+        // console.log("this.cartsubtotal",this.cartc[i].quantity)
+        // console.log("this.cartcartsubtotalsubtotal",this.cartc[i])
+        // console.log("this.cartsubtotal",this.cartc)
+        // console.log("this.cartsubtotal",cartsubtotal)
+      }
     }
     this.subtotalSource.next(cartsubtotal);
   }
 
+}else{
+
+  let Guest_Cart=  JSON.parse(sessionStorage.getItem('Guest_Cart'))
+  if(Guest_Cart){
+
+  let cartsubtotal:number=0
+  if(Guest_Cart[0].items[0]){
+
+    cartsubtotal=Guest_Cart[0].items[0].amount
+    this.subtotalSource.next(cartsubtotal);
+  }
+}else{
+  let cartsubtotal:number=0
+  this.subtotalSource.next(cartsubtotal);
+}
 }
 }
 
@@ -184,6 +202,7 @@ Customer_Cart:any=[]
 Customer_Id:number
 User_Details:any
 getItemCount(){
+  
   this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
   if(this.User_Details){
     if(this.User_Details){
@@ -198,10 +217,20 @@ getItemCount(){
     this.Customer_Cart=this.Find_Customer_Cart.items
     // console.log("Customer_Cart",this.Customer_Cart)
     const cartLength = this.Customer_Cart.length;
+    
   this.cartLengthSubject.next(cartLength);
 }
 
 }
+}else{
+  let Guest_Cart=  JSON.parse(sessionStorage.getItem('Guest_Cart'))
+  if(Guest_Cart){
+    const cartLength=1
+    this.cartLengthSubject.next(cartLength);
+  }else{
+    const cartLength=0
+    this.cartLengthSubject.next(cartLength);
+  }
 }
 }
   
@@ -276,6 +305,10 @@ ADD_Cart_User_Wise(username:any,data:any,id:any){
 // let Product_Quantity={
 //   qunatity:quantity
 // }
+let Guest_cart=JSON.parse(sessionStorage.getItem('Guest_Cart'));
+if(!Guest_cart){
+
+
   let Merge = JSON.parse(localStorage.getItem('Cart'));
  let cart=Merge.find((user:any)=>user.username==username)
  let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==id)
@@ -291,11 +324,39 @@ ADD_Cart_User_Wise(username:any,data:any,id:any){
     this.toastr.info('Already Added Please Go to Cart', data.title);
     localStorage.setItem("Cart", JSON.stringify(Merge));
   }
+}else{
+  let Merge = JSON.parse(localStorage.getItem('Cart'));
+ let cart=Merge.find((user:any)=>user.username==username)
+ let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==id)
+  if(!duplicate){
+    cart.items.push(data)
+    cart.items.push(Guest_cart[0].items[0])
+    if(sessionStorage.getItem('Guest_Cart')){
+      let Merge = JSON.parse(localStorage.getItem('Guest_Cart'));
+      if(Merge){
+
+        Merge[0].items=[]
+        localStorage.setItem("Guest_Cart", JSON.stringify(Merge));
+      }
+      }
+    console.log("Cart in Service==>>",cart)
+    console.log("Merge",Merge)
+    localStorage.setItem("Cart", JSON.stringify(Merge));
+    this.toastr.success('Added to cart', data.title);
+   }else{
+     // duplicate.quantity=duplicate.quantity+1
+     console.log("Merge",Merge)
+     this.toastr.info('Already Added Please Go to Cart', data.title);
+     localStorage.setItem("Cart", JSON.stringify(Merge));
+   }
 }
+}
+
 ADD_Cart_User_Wise_Quantity(username:any,data:any,id:any){
 // let Product_Quantity={
 //   qunatity:quantity
 // }
+
   let Merge = JSON.parse(localStorage.getItem('Cart'));
  let cart=Merge.find((user:any)=>user.username==username)
  let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==id)
@@ -354,6 +415,55 @@ Delete_User_Cart_LocalStorage(username:any){
     console.log("cart.items", cart.items)
     console.log("Merge", Merge)
     localStorage.setItem("Cart", JSON.stringify(Merge));
+    // this.getItemCount()
+    //   this.Subtotal()
+}
+Guest_cart_Generate(){
+  if(!sessionStorage.getItem('Guest_Cart')){
+
+    let cart={
+      items:[]
+  }
+  
+  
+      console.log("cart",cart)
+      let Arr = JSON.stringify([]);
+      if (!sessionStorage.getItem('Guest_Cart')) {
+        sessionStorage.setItem('Guest_Cart', Arr);
+      }
+      
+      let Merge = JSON.parse(sessionStorage.getItem('Guest_Cart'));
+      Merge.push(cart);
+      console.log("Merge",Merge)
+      sessionStorage.setItem("Guest_Cart", JSON.stringify(Merge));
+      
+   
+}
+}
+Guest_User(data:any){
+  if(sessionStorage.getItem('Guest_Cart')){
+
+
+    let Merge = JSON.parse(sessionStorage.getItem('Guest_Cart'));
+    if(Merge[0].items.length==0){
+
+      let duplicate = Merge[0].items.find((Duplicate:any)=>Duplicate.id==data.id)
+      if(!duplicate){
+        Merge[0].items.push(data)
+        console.log("Cart in Service==>>",Merge)
+        sessionStorage.setItem("Guest_Cart", JSON.stringify(Merge));
+        this.toastr.success('Added to cart', data.title);
+      }else{
+        // duplicate.quantity=duplicate.quantity+1
+        console.log("Merge",Merge)
+        this.toastr.info('Already Added Please Go to Cart', data.title);
+        sessionStorage.setItem("Guest_Cart", JSON.stringify(Merge));
+      }
+    }else{
+      this.toastr.error('Please Login For Add More Items in Cart');
+    }
+  
+}
 }
 
 }

@@ -111,10 +111,100 @@
   </table>
 </div>
 <ng-template #EmptyCart>
-  <div class="fs-3 fw-bold text-danger align-items-center text-center mt-4">
-    {{ username }}, Your Cart is Empty
+  <div *ngIf="!Guest_Cart[0].items.length" class="fs-3 fw-bold text-danger align-items-center text-center mt-4">
+    {{ username?username:"Guest"}}, Your Cart is Empty
   </div>
 </ng-template>
+
+<div
+  class="table-responsive container mt-5"
+  *ngIf="!Customer_Cart.length"
+>
+  <table class="table" *ngIf="groupedProducts.length">
+    <thead>
+      <tr>
+        <th scope="col" colspan="2">Item Description</th>
+        <th scope="col">Unit Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col" colspan="2">Subtotal</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+
+    <tbody
+      class="table-group-divider"
+      *ngFor="let group of groupedProducts; let y = index"
+    >
+      <tr>
+        <td
+          colspan="6"
+          class="text-left bg-secondary-subtle text-black fw-bold"
+          *ngIf="group.category != ''"
+        >
+          {{ group.category }} &nbsp;&nbsp;<span>{{ group.cart.length }} </span
+          >Items Subtotal: {{ Subtotal_Per_Category(group) | currency : "INR" }}
+        </td>
+      </tr>
+
+      <tr *ngFor="let product of group.cart; let i = index">
+        <td>
+          {{ product.title  }} <br />{{
+            product.weight 
+          }}
+        </td>
+        <td></td>
+        <td>
+          <b>{{ product.amount | currency : "INR"  }}</b
+          ><br />
+          <span class="text-decoration-line-through">{{
+            product.price | currency : "INR" 
+          }}</span>
+        </td>
+        <td>
+          <button
+            class="btn btn-outline-light btn-transparent"
+            (click)="quantitymin(y, i,product)"
+          >
+            <img
+              width="20"
+              height="20"
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAeUlEQVR4nO3VwQ2DMAwFUM9XeugUCatCt+HWk6twYICA1Aa9J/27/RPJEQAAAAAAAABNzs/IukbWT2TNgdLmXSPLFCeXz/FTXp0F1PdNClh6C9h+P/wl2fyALlmmP3i9K/LoK+AooSxjXoF97hPLAwAAAAAAAMQ9fAHCeEX20iAlZgAAAABJRU5ErkJggg=="
+            />
+          </button>
+          {{ product.quantity }}
+          <button
+            class="btn btn-outline-light btn-transparent"
+            (click)="quantitymax(y, i,product)"
+          >
+            <img
+              width="20"
+              height="20"
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABeUlEQVR4nO3YS04bURCF4XP3gcdeEgNjEl7tR0J4GhuxIluWvDGw4t7Aj3BQBqCuAVxBu2590j9i0nWEZOlKIYQQQghfif2O6C1Fr35tJXpdlXP8wZM44E3r7d/co78UfRpayD36tTikoY3co/H4f7nHD8zco/gBfiIr9yh+gCNk5R7FD3CMrNyj+AFOkJV7FD/AKbJyj+IHOENW7lH8ABWyaiVGHVEtRVWbH9+OXr5xJYbdjMcPnsSA3apab7/98wNUy+8/5sNleGNkWIshu9kgwxsjo1qM2NH+5vgPWLXgkI82zzFAV4zXYsxuNXoU53ufH+D/L8F4IcYb8Yt2t/3Geb7jc+M3Zu5R/ADnyMo9/mDmHsUPcIGs3OMSM/cofIDEFVbyLnGNlbxL3GAl71IMcEsykneJCVbyLsUAdyQjeZeY1okpDWV4w2u5xHSVmNFQhje8tmPSTczW74+fPoq7lj5j5cZDJ3G/SMw2r83LOT6EEEIIaolnLO9zz1ArmsMAAAAASUVORK5CYII="
+            />
+          </button>
+        </td>
+        <td class="fw-bolder">
+          {{ product.amount * product.quantity | currency : "INR"  }}
+        </td>
+
+        <td>
+          <button
+            type="button"
+            class="btn btn-transparent float-end"
+            (click)="DelectProduct(product.id, y, i, product)"
+          >
+            <img
+              src="https://img.icons8.com/material/96/null/delete-sign--v1.png"
+              width="25"
+              height="25"
+            />
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
 <div
   class="table-responsive container d-flex justify-content-end mt-3 mb-3"

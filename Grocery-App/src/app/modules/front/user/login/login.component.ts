@@ -36,7 +36,7 @@ export class LoginComponent {
   User_Details: any;
   ngOnInit() {
     window.scrollTo(0, 0);
-
+    this._cartservice.Guest_cart_Generate()
     // this.toastr.success('Login Successfully');
     this.User_Login_Form();
     this.RegisterData = JSON.parse(sessionStorage.getItem('Register_User'));
@@ -107,6 +107,10 @@ export class LoginComponent {
                 JSON.stringify(User_details_res.data)
               );
               this.Showcart();
+              let Guest_Cart=JSON.parse(sessionStorage.getItem("Guest_Cart"))
+              // this._cartservice.Guest_User(Guest_Cart[0].items[0])
+              this._cartservice.ADD_Cart_User_Wise_Quantity(User_details_res.data.username,Guest_Cart[0].items[0],Guest_Cart[0].items[0].id)
+              
               resolve(User_details_res);
             }
           }
@@ -157,6 +161,7 @@ export class LoginComponent {
                 'Login_User',
                 JSON.stringify(this.user_login.value)
               );
+              
               this.toastr.success('Login Successfully');
               this.router.navigate(['/home']);
               // this.Get_Customer_Id()

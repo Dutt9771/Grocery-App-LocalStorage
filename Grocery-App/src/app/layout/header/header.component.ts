@@ -49,10 +49,10 @@ export class HeaderComponent {
         window.scrollTo(0,0) 
         this.GetAllCategory()
         // console.log("this._cartService.Subtotal()",this._cartService.Subtotal())
-        this._cartService.Subtotal()
+        // this._cartService.Subtotal()
         this.cartItemCount=this._cartService.getItemCount()
         this._cartService.cartLength$.subscribe((length) => {
-          if(length){
+    
 
             this.cartItemCount = length;
             this._cartService.currentSubtotal.subscribe((res)=>{
@@ -62,13 +62,15 @@ export class HeaderComponent {
                 // console.log("res",res)
               }
             })
-          }
+          
       });
       // console.log("this._cartService.getItemCount()",this._cartService.getItemCount())
       this.filteredItems=this._productsservice.getProducts()
       this.router.events.subscribe((res:any)=>{
         if(res.url){
           this.Check_User()
+          this._cartService.getItemCount()
+      this._cartService.Subtotal()
         }
       })
 
@@ -95,6 +97,7 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
   
     onSearchClick(): void {
       this.searchService.setSearchQuery(this.query);
+      this.router.navigate(["/front/catalogue/products-list",'all'])
     }
 
   //   Category_Select:any
@@ -150,10 +153,13 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       sessionStorage.removeItem('Register_User');
       sessionStorage.removeItem('User_Details')
       this.cookieService.delete('User_Login_Token');
-      this.router.navigate(['front/user/login'])
-      // console.log(this.email)
-      this.Login_Logout_msg="Login"
+sessionStorage.removeItem('Guest_Cart')
+this.router.navigate(['front/user/login'])
+// console.log(this.email)
+this.Login_Logout_msg="Login"
       this.User_name="Login/Signup"
+      this._cartService.getItemCount()
+      this._cartService.Subtotal()
       this.toastr.success('Logout Successfully');
       }
     }

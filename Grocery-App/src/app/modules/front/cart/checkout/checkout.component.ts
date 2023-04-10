@@ -180,8 +180,9 @@ if(this.Login_User){
         
         this._cartService.Get_Order_Detail_By_Id(this.Add_Order_Response_Data).subscribe({next:(Get_OrderById_res)=>{
           if(Get_OrderById_res){
+            this._cartService.Delete_User_Cart_LocalStorage(this.User_Details.username)
+            console.log("Get_OrderById_res",Get_OrderById_res) 
 
-            console.log("Get_OrderById_res",Get_OrderById_res)            
             this.route.navigate(['/front/cart/success'])
           }
         },error:(Get_Order_error)=>{
