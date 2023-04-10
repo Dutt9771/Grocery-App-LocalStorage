@@ -1,0 +1,236 @@
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+  crossorigin="anonymous"
+/>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+  crossorigin="anonymous"
+></script>
+
+<div class="card border-0 text-black">
+  <img
+    src="/assets/grocery_background.jpg"
+    alt=""
+    class="card-img w-100 h-auto opacity-25"
+    height="100"
+  />
+  <div
+    class="card-img-overlay text-center my-3 d-flex justify-content-center align-items-center"
+  >
+    <div>
+      <p id="product_list_text" class="card-title fs-1 fw-bolder">
+        Registration
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="d-flex justify-content-center"> -->
+
+<form
+  class="row d-flex justify-content-center mt-5"
+  [formGroup]="User_Register"
+  (ngSubmit)="Save_User_Register()"
+  novalidate
+>
+  <div class="row g-2 justify-content-center">
+    <div class="col-md-5">
+      <label for="first_name" class="form-label">First Name</label>
+      <input
+        type="text"
+        formControlName="first_name"
+        class="form-control"
+        id="first_name"
+        placeholder="Enter Name"
+      />
+      <div
+        *ngIf="
+          get_User_Register.first_name.touched &&
+          get_User_Register.first_name.invalid
+        "
+        class="text-danger col-md-5 mt-1"
+      >
+        <div
+          *ngIf="get_User_Register.first_name.errors?.['required']"
+          class="text-danger"
+        >
+          First Name Must Required
+        </div>
+        <div
+          *ngIf="get_User_Register.first_name.errors?.['minlength']"
+          class="text-danger"
+        >
+          First Name MustShould be 2 Character
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+      <label for="last_name" class="form-label">Last Name</label>
+      <input
+        type="text"
+        formControlName="last_name"
+        class="form-control"
+        id="last_name"
+        placeholder="Enter Name"
+      />
+      <div
+        *ngIf="
+          get_User_Register.last_name.touched &&
+          get_User_Register.last_name.invalid
+        "
+        class="text-danger col-md-5 mt-1"
+      >
+        <div
+          *ngIf="get_User_Register.last_name.errors?.['required']"
+          class="text-danger"
+        >
+          Last Name Must Required
+        </div>
+        <div
+          *ngIf="get_User_Register.last_name.errors?.['minlength']"
+          class="text-danger"
+        >
+          Last Name MustShould be 2 Character
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-2 justify-content-center">
+    <div class="col-md-5">
+      <label for="contact" class="form-label">Primary Mobile Number</label>
+      <input
+        type="text"
+        formControlName="primary_mobile_number"
+        class="form-control"
+        id="contact"
+        placeholder="Please Enter Contact"
+      />
+      <div
+        *ngIf="
+          get_User_Register.primary_mobile_number.touched &&
+          get_User_Register.primary_mobile_number.invalid
+        "
+        class="text-danger col-md-5 mt-1"
+      >
+        <div
+          *ngIf="get_User_Register.primary_mobile_number.errors?.['required']"
+          class="text-danger"
+        >
+          Primary Mobile Number Must Required
+        </div>
+        <div
+          *ngIf="get_User_Register.primary_mobile_number.errors?.['pattern']"
+          class="text-danger"
+        >
+          Please Enter Valid Primary Mobile Number
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <label for="primary_email" class="form-label">Primary Email</label>
+      <input
+        type="email"
+        formControlName="primary_email"
+        class="form-control"
+        id="primary_email"
+        placeholder="Enter Email"
+      />
+      <div
+        *ngIf="
+          get_User_Register.primary_email.touched &&
+          get_User_Register.primary_email.invalid
+        "
+        class="text-danger col-md-5 mt-1"
+      >
+        <div
+          *ngIf="get_User_Register.primary_email.errors?.['required']"
+          class="text-danger"
+        >
+          Primary Email Must Required
+        </div>
+        <div
+          *ngIf="get_User_Register.primary_email.errors?.['email']"
+          class="text-danger"
+        >
+          Please Enter Valid Primary Email
+        </div>
+        <div
+          *ngIf="get_User_Register.primary_email.errors?.['pattern']"
+          class="text-danger"
+        >
+          Please Enter Valid Primary Email
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-2 justify-content-center">
+    <div class="col-md-5">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        formControlName="username"
+        class="form-control"
+        id="username"
+        placeholder="Please Enter username"
+      />
+      <div
+        *ngIf="
+          get_User_Register.username.touched &&
+          get_User_Register.username.invalid
+        "
+        class="text-danger col-md-5 mt-1"
+      >
+        <div
+          *ngIf="get_User_Register.username.errors?.['required']"
+          class="text-danger"
+        >
+          Username Must Required
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        formControlName="password"
+        class="form-control"
+        id="password"
+        placeholder="Please Enter Password"
+      />
+      <div
+        *ngIf="
+          get_User_Register.password.touched &&
+          get_User_Register.password.invalid
+        "
+        class="text-danger col-md-5 mt-1"
+      >
+        <div
+          *ngIf="get_User_Register.password.errors?.['required']"
+          class="text-danger"
+        >
+          Password Must Required
+        </div>
+        <div
+          *ngIf="get_User_Register.password.errors?.['minlength']"
+          class="text-danger"
+        >
+          Password Length must be 8
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center mt-2">
+    <div class="col-md-5 text-center">
+      <button type="submit" class="btn btn-primary col-md-5">Register</button>
+    </div>
+  </div>
+</form>
+<!-- </div> -->

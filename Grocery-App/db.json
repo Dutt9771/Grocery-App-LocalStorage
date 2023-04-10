@@ -1,0 +1,130 @@
+{
+  "cart": [
+    {
+      "id": 1,
+      "items": [
+        [
+          {
+            "id": 10,
+            "title": "product-10",
+            "amount": 110,
+            "discount_type": 1,
+            "discount_amount": 0,
+            "avatar_image": "1680602491447-male.jpg",
+            "images": null,
+            "short_description": "short description 10",
+            "description": "description 10",
+            "slug": "product-10",
+            "is_active": true,
+            "deleted_at": null,
+            "createdAt": "2023-04-04T10:01:31.000Z",
+            "updatedAt": "2023-04-04T10:01:31.000Z",
+            "customer_id": 3,
+            "quantity": 1
+          }
+        ],
+        {
+          "id": 5,
+          "title": "product-5",
+          "amount": 200,
+          "discount_type": 1,
+          "discount_amount": 0,
+          "avatar_image": "1680602362547-male.jpg",
+          "images": null,
+          "short_description": "short description 5",
+          "description": "description 5",
+          "slug": "product-5",
+          "is_active": true,
+          "deleted_at": null,
+          "createdAt": "2023-04-04T09:59:22.000Z",
+          "updatedAt": "2023-04-04T09:59:22.000Z",
+          "customer_id": 3,
+          "quantity": 1
+        },
+        {
+          "id": 5,
+          "title": "product-5",
+          "amount": 200,
+          "discount_type": 1,
+          "discount_amount": 0,
+          "avatar_image": "1680602362547-male.jpg",
+          "images": null,
+          "short_description": "short description 5",
+          "description": "description 5",
+          "slug": "product-5",
+          "is_active": true,
+          "deleted_at": null,
+          "createdAt": "2023-04-04T09:59:22.000Z",
+          "updatedAt": "2023-04-04T09:59:22.000Z",
+          "customer_id": 3,
+          "quantity": 1
+        },
+        {
+          "id": 5,
+          "title": "product-5",
+          "amount": 200,
+          "discount_type": 1,
+          "discount_amount": 0,
+          "avatar_image": "1680602362547-male.jpg",
+          "images": null,
+          "short_description": "short description 5",
+          "description": "description 5",
+          "slug": "product-5",
+          "is_active": true,
+          "deleted_at": null,
+          "createdAt": "2023-04-04T09:59:22.000Z",
+          "updatedAt": "2023-04-04T09:59:22.000Z",
+          "customer_id": 3,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "items": []
+    },
+    {
+      "id": 34,
+      "items": [
+        {
+          "id": 6,
+          "title": "product-6",
+          "amount": 120,
+          "discount_type": 1,
+          "discount_amount": 0,
+          "avatar_image": "1680602388355-male.jpg",
+          "images": null,
+          "short_description": "short description 6",
+          "description": "description 6",
+          "slug": "product-6",
+          "is_active": true,
+          "deleted_at": null,
+          "createdAt": "2023-04-04T09:59:48.000Z",
+          "updatedAt": "2023-04-04T09:59:48.000Z",
+          "quantity": 1
+        },
+        {
+          "id": 7,
+          "title": "product-7",
+          "amount": 450,
+          "discount_type": 1,
+          "discount_amount": 0,
+          "avatar_image": "1680602414807-male.jpg",
+          "images": null,
+          "short_description": "short description 7",
+          "description": "description 7",
+          "slug": "product-7",
+          "is_active": true,
+          "deleted_at": null,
+          "createdAt": "2023-04-04T10:00:14.000Z",
+          "updatedAt": "2023-04-04T10:00:14.000Z",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "items": []
+    }
+  ]
+}

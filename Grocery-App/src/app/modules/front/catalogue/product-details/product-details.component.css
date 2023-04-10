@@ -1,0 +1,22 @@
+
+  @media (min-width: 768px) {
+    .card img {
+      height: 11em;
+    }
+  }
+
+  #Loading {
+    position: fixed;
+    z-index: 999;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  #product_list_text{
+    font-size: 1000px;
+    font-family: 'Orbitron', sans-serif;
+  }
+  

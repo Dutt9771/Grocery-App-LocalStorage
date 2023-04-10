@@ -1,0 +1,68 @@
+<!-- navbar -->
+<!-- Responsive -->
+
+<nav class="navbar navbar-expand-lg bg-body-transparent">
+  <div class="container">
+    <h2 class="navbar-brand m-3">Explore Categories</h2>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link link-primary"
+            aria-current="page"
+            [routerLink]="['../front/catalogue/products-list/', 'all']"
+            >All</a
+          >
+        </li>
+        <li class="nav-item" *ngFor="let product of grocery_items">
+          <a
+            class="nav-link link-primary"
+            aria-current="page"
+            [routerLink]="['../front/catalogue/products-list/', product.slug]"
+            >{{product.title | titlecase}}</a
+          >
+        </li>
+        <!-- <li class="nav-item"> <a class="nav-link" href="#">Vegetables</a> </li> <li
+                class="nav-item"> <a class="nav-link" href="#">Fruits</a> </li> <li
+                class="nav-item"> <a class="nav-link" href="#">Coffe And Teas</a> </li> <li
+                class="nav-item"> <a class="nav-link" href="#">Meat</a> </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- [routerLink]="['/front/catalogue/products-list',
+product.category.toLowerCase()]" -->
+
+<carousel
+  [autoplay]="true"
+  [height]="300"
+  [autoplayInterval]="3000"
+  [pauseOnHover]="true"
+  class="container"
+>
+  <div class="carousel-cell" *ngFor="let product of grocery_items">
+    <div
+      class="card bg-transparent p-3 m-2"
+      [routerLink]="['../front/catalogue/products-list/', product.slug]"
+      routerLinkActive="router-link-active"
+    >
+      <img src="/assets/grocery_sample.jpg" alt="" width="120" height="120" />
+      <div class="card-body text-center">
+        <h4>{{ product.title }}</h4>
+        <small>{{ product.parent_id }}</small>
+      </div>
+    </div>
+  </div>
+</carousel>

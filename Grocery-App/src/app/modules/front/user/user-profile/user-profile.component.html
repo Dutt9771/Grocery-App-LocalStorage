@@ -1,0 +1,195 @@
+<!-- google profile code  -->
+
+<!-- <div>  
+    <nav class="navBar">
+      <div>
+       <img src="{{user.photoUrl}}" width="30px" height="30px" style="border-radius: 50%;">
+     </div>
+     <div>
+       <p>{{user.email}}</p>
+       
+     </div>
+   </nav>
+   <div>
+     <h1>Welcome {{user.name}}</h1>
+   </div>
+ </div> 
+ <br> -->
+
+<div class="mx-5 d-flex justify-content-center">
+  <div class="row g-1 m-lg-5 d-flex justify-content-center">
+    <form
+      class="row g-5 m-lg-5 d-flex justify-content-center"
+      [formGroup]="Profile"
+      (ngSubmit)="User_Profile_Edit()"
+      novalidate
+    >
+      <div class="row g-2 justify-content-center">
+        <div class="col-md-5">
+          <label for="inputfirstname" class="form-label">First Name</label>
+          <input
+            type="text"
+            formControlName="firstname"
+            class="form-control"
+            id="inputfirstname"
+            placeholder="Enter Name"
+          />
+          <div
+            *ngIf="
+              get_Profile.firstname.touched && get_Profile.firstname.invalid
+            "
+            class="text-danger col-md-5 mt-1"
+          >
+            <div
+              *ngIf="get_Profile.firstname.errors?.['required']"
+              class="text-danger"
+            >
+              First Name Must Required
+            </div>
+            <div
+              *ngIf="get_Profile.firstname.errors?.['minlength']"
+              class="text-danger"
+            >
+              First Name MustShould be 2 Character
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <label for="inputlastname" class="form-label">Last Name</label>
+          <input
+            type="text"
+            formControlName="lastname"
+            class="form-control"
+            id="inputlastname"
+            placeholder="Enter Name"
+          />
+          <div
+            *ngIf="get_Profile.lastname.touched && get_Profile.lastname.invalid"
+            class="text-danger col-md-5 mt-1"
+          >
+            <div
+              *ngIf="get_Profile.lastname.errors?.['required']"
+              class="text-danger"
+            >
+              Last Name Must Required
+            </div>
+            <div
+              *ngIf="get_Profile.lastname.errors?.['minlength']"
+              class="text-danger"
+            >
+              Last Name MustShould be 2 Character
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2 justify-content-center">
+        <div class="col-md-5">
+          <label for="inputEmail" class="form-label"
+            >Secondary Contact Email</label
+          >
+          <input
+            type="email"
+            formControlName="alternateemail"
+            class="form-control"
+            id="inputEmail"
+            placeholder="Enter Alternate Contact Email"
+          />
+          <div
+            *ngIf="
+              get_Profile.alternateemail.touched &&
+              get_Profile.alternateemail.invalid
+            "
+            class="text-danger col-md-5 mt-1"
+          >
+            <div
+              *ngIf="get_Profile.alternateemail.errors?.['required']"
+              class="text-danger"
+            >
+              Alternate Email Must Required
+            </div>
+            <div
+              *ngIf="get_Profile.alternateemail.errors?.['email']"
+              class="text-danger"
+            >
+              Please Enter Valid Alternate Email
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <label for="alternatecontact" class="form-label"
+            >Secondary Contact Number</label
+          >
+          <input
+            type="text"
+            formControlName="alternatecontact"
+            class="form-control"
+            id="alternatecontact"
+            placeholder="Please Enter Alternate Contact"
+          />
+          <div
+            *ngIf="
+              get_Profile.alternatecontact.touched &&
+              get_Profile.alternatecontact.invalid
+            "
+            class="text-danger col-md-5 mt-1"
+          >
+            <div
+              *ngIf="get_Profile.alternatecontact.errors?.['required']"
+              class="text-danger"
+            >
+              Alternate Contact Must Required
+            </div>
+            <div
+              *ngIf="get_Profile.alternatecontact.errors?.['pattern']"
+              class="text-danger"
+            >
+              Please Enter Valid Alternate Contact
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2 justify-content-center">
+        <div class="col-md-5">
+          <label for="dob" class="form-label">Date Of Birth</label>
+          <input
+            type="date"
+            formControlName="dob"
+            class="form-control"
+            id="dob"
+            placeholder="Enter Date Of Birth"
+          />
+          <div
+            *ngIf="get_Profile.dob.touched && get_Profile.dob.invalid"
+            class="text-danger col-md-5 mt-1"
+          >
+            <div
+              *ngIf="get_Profile.dob.errors?.['required']"
+              class="text-danger"
+            >
+              Date Of Birth Must Required
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-5">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" formControlName="password" class="form-control" id="password" placeholder="Enter Password">
+                <div *ngIf="get_Profile.password.touched && get_Profile.password.invalid" class="text-danger col-md-5 mt-1">
+                  <div *ngIf="get_Profile.password.errors?.['required']" class="text-danger">Password Must Required</div>
+                  <div *ngIf="get_Profile.password.errors?.['minlength']" class="text-danger">Password Length must be 8</div></div>
+              </div> -->
+      </div>
+
+      <div class="row g-2 d-flex justify-content-center">
+        <div class="col-md-5 text-center">
+          <button type="submit" class="btn btn-primary col-md-4 text-center">
+            Edit Profile
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

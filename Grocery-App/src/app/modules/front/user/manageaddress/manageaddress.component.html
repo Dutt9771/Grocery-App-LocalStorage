@@ -1,0 +1,59 @@
+<div class="row g-3 m-lg-5 d-flex justify-content-center">
+  <div class="row g-2 justify-content-end w-10">
+    <div class="col-md-10 d-flex justify-content-end">
+      <button
+        class="w-5 h-10 btn btn-success me-4"
+        [routerLink]="['../addaddress']"
+        routerLinkActive="router-link-active"
+      >
+        ADD Address
+      </button>
+    </div>
+  </div>
+  <div class="container mt-3">
+    <div
+      class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center"
+    >
+      <div
+        class="col"
+        *ngFor="let item of User_details_Obj_addresses; let i = index"
+      >
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title fs-5">
+              <span class="text-success">Address Tag :</span> {{ item.tag }}
+            </h5>
+            <p class="card-text fs-6">{{ item.address_line_1 }}</p>
+            <p class="card-text fs-6">{{ item.address_line_2 }}</p>
+            <p class="card-text fs-6">Country: {{ item.country }}</p>
+            <p class="card-text fs-6">State: {{ item.state }}</p>
+            <p class="card-text fs-6">City: {{ item.city }}</p>
+            <p class="card-text fs-6">Landmark : {{ item.landmark }}</p>
+            <p class="card-text fs-6">Postal Code : {{ item.postal_code }}</p>
+
+            <div class="text-center card-footer bg-transparent border-0">
+              <button class="btn btn-outline-dark">DELIVER HERE</button>
+              <button
+                class="btn btn-outline-transparent"
+                (click)="Delete_Address(i, item.id)"
+              >
+                <img
+                  src="https://img.icons8.com/cute-clipart/32/null/delete-forever.png"
+                />
+              </button>
+              <button class="btn btn-outline-transparent">
+                <img
+                  src="https://img.icons8.com/cute-clipart/32/null/pencil.png"
+                  [routerLink]="['../editaddress', item.id]"
+                  routerLinkActive="router-link-active"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add more cards here using ngFor -->
+    </div>
+  </div>
+</div>

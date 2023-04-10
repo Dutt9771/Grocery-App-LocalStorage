@@ -1,0 +1,86 @@
+<div class="card border-0 text-black">
+  <img
+    src="/assets/grocery_background.jpg"
+    alt=""
+    class="card-img w-100 h-auto opacity-25"
+    height="100"
+  />
+  <div
+    class="card-img-overlay text-center my-3 d-flex justify-content-center align-items-center"
+  >
+    <div>
+      <p id="product_list_text" class="card-title fs-1 fw-bolder">Login</p>
+    </div>
+  </div>
+</div>
+<form
+  class="row g-3 d-flex justify-content-center"
+  [formGroup]="user_login"
+  (ngSubmit)="Save_User_Login()"
+  novalidate
+>
+  <div class="row g-3 d-flex justify-content-center">
+    <div class="col-md-3">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        formControlName="username"
+        class="form-control"
+        id="username"
+        placeholder="Enter Username"
+      />
+    </div>
+  </div>
+  <div
+    *ngIf="get_user_login.username.touched && get_user_login.username.invalid"
+    class="text-danger text-center"
+  >
+    <div
+      *ngIf="get_user_login.username.errors?.['required']"
+      class="text-danger"
+    >
+      Username Must Required
+    </div>
+  </div>
+  <div class="row g-3 d-flex justify-content-center">
+    <div class="col-md-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        formControlName="password"
+        class="form-control"
+        id="password"
+        placeholder="Enter Password"
+      />
+    </div>
+    <div
+      *ngIf="get_user_login.password.touched && get_user_login.password.invalid"
+      class="text-danger text-center"
+    >
+      <div
+        *ngIf="get_user_login.password.errors?.['required']"
+        class="text-danger"
+      >
+        Password Must Required
+      </div>
+      <div
+        *ngIf="get_user_login.password.errors?.['minlength']"
+        class="text-danger"
+      >
+        Register Password Should be 8 Character
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-2 d-flex justify-content-center">
+    <div class="d-grid col-3 col-md-1 mx-auto">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </div>
+  <!-- <div class="row g-2 col-md-1 justify-content-center">
+        <div class="g-btn" *ngIf="!user">
+          <asl-google-signin-button  class="g-logo"></asl-google-signin-button>
+          <span>Google</span>
+            </div>
+          </div>   -->
+</form>

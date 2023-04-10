@@ -1,0 +1,15 @@
+/* img {
+    animation: play 0s steps(1, end) 1;
+    }
+    @keyframes play {
+    0% {
+    background: url(/assets/success.gif);
+    }
+    100% {
+    background: url(/assets/success.gif);
+    }
+    } */
+    #product_list_text{
+        font-size: 1000px;
+        font-family: 'Orbitron', sans-serif;
+      }

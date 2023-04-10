@@ -1,0 +1,103 @@
+<!-- Display the products that belong to the selected category -->
+<img
+  class="rounded mx-auto d-block img-fluid bg-light"
+  src="/assets/loading_Gif.gif"
+  id="Loading"
+  width="100%"
+  height="100%"
+  *ngIf="loading"
+/>
+<div class="card border-0 text-black">
+  <img
+    src="/assets/grocery_background.jpg"
+    alt=""
+    class="card-img w-100 h-auto opacity-25"
+    height="100"
+  />
+  <div
+    class="card-img-overlay text-center my-3 d-flex justify-content-center align-items-center"
+  >
+    <div>
+      <p
+        id="product_list_text"
+        class="card-title fs-1 fw-bolder"
+        *ngIf="product_item; else not_category"
+      >
+        {{ product_item }}
+      </p>
+      <ng-template #not_category>
+        <p id="product_list_text" class="card-title fs-1 fw-bolder">
+          Grocery Products
+        </p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<div class="container" *ngFor="let product of filteredItems">
+  <div class="row">
+    <div class="col-lg-4">
+      <img
+        src="{{ product.avatar_image }}"
+        class="img-fluid rounded-start"
+        alt="..."
+      />
+    </div>
+    <div class="col-lg-6 mt-4">
+      <div class="card-body">
+        <h5 class="card-title">
+          <u>{{ product.title  }}</u>
+        </h5>
+        <!-- <p class="card-text">{{product.name}},{{product.weight}}</p> -->
+        <small class="fw-bolder">{{
+          product.amount | currency : "INR" : "Rs." 
+        }}</small>
+        <!-- <div class="fw-bolder">Price: {{product.moneyOfferPrice * product_quantity.quantity | currency:'INR':'Rs.'}} </div> -->
+        <div class="mt-3">
+          <div class="btn-group me-2" role="group">
+            <!-- <button class="btn btn-outline-light btn-transparent" (click)="quantitymin()"><img class="border-1" width="20" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAeUlEQVR4nO3VwQ2DMAwFUM9XeugUCatCt+HWk6twYICA1Aa9J/27/RPJEQAAAAAAAABNzs/IukbWT2TNgdLmXSPLFCeXz/FTXp0F1PdNClh6C9h+P/wl2fyALlmmP3i9K/LoK+AooSxjXoF97hPLAwAAAAAAAMQ9fAHCeEX20iAlZgAAAABJRU5ErkJggg=="></button>
+                            <button class="btn btn-outline-transparent btn-transparent">{{product_quantity.quantity}}</button>
+                            <button class="btn btn-outline-light btn-transparent" (click)="quantitymax()"><img class="border-1" width="20" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABeUlEQVR4nO3YS04bURCF4XP3gcdeEgNjEl7tR0J4GhuxIluWvDGw4t7Aj3BQBqCuAVxBu2590j9i0nWEZOlKIYQQQghfif2O6C1Fr35tJXpdlXP8wZM44E3r7d/co78UfRpayD36tTikoY3co/H4f7nHD8zco/gBfiIr9yh+gCNk5R7FD3CMrNyj+AFOkJV7FD/AKbJyj+IHOENW7lH8ABWyaiVGHVEtRVWbH9+OXr5xJYbdjMcPnsSA3apab7/98wNUy+8/5sNleGNkWIshu9kgwxsjo1qM2NH+5vgPWLXgkI82zzFAV4zXYsxuNXoU53ufH+D/L8F4IcYb8Yt2t/3Geb7jc+M3Zu5R/ADnyMo9/mDmHsUPcIGs3OMSM/cofIDEFVbyLnGNlbxL3GAl71IMcEsykneJCVbyLsUAdyQjeZeY1okpDWV4w2u5xHSVmNFQhje8tmPSTczW74+fPoq7lj5j5cZDJ3G/SMw2r83LOT6EEEIIaolnLO9zz1ArmsMAAAAASUVORK5CYII="></button> -->
+            <input
+              type="text"
+              class="col-md-5"
+              name="quantity"
+              id="quantity"
+              [(ngModel)]="product_quantity.quantity"
+              maxlength="2"
+              placeholder="Enter Quantity"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-transparent btn-success col-md-2"
+              (click)="Add_cart(product)"
+              [disabled]="!(product_quantity.quantity > 0)"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div *ngIf="product_quantity.quantity > 0; else QuantityErr"></div>
+        <ng-template #QuantityErr
+          ><p class="text-danger fw-bold">
+            Please Enter Valid Quantity
+          </p></ng-template
+        >
+        <div class="text-danger fw-bold">{{ QuantityErrMsg }}</div>
+      </div>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="mt-2 mb-0">{{ product.name  }}</h3>
+      <hr class="mt-1 mb-1" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h4>About the Product</h4>
+      <p>{{ product.short_description  }}</p>
+      <p>{{ product.description  }}</p>
+    </div>
+  </div>
+</div>

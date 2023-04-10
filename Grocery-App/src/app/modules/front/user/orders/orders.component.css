@@ -1,0 +1,39 @@
+.active {
+    font-weight: bolder;
+}
+.mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+}
+.vl {
+    border-left: 2px solid grey;
+    height: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+  }
+  span{
+    color:grey;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  #product_list_text {
+    font-size: 1000px;
+    font-family: 'Orbitron', sans-serif;
+}
+.orSpan{
+    
+    margin-top: -1.3rem;
+    margin-left:50%;
+    padding:0 5px;
+    background-color: white;
+  }
+  #Loading {
+    position: fixed;
+    z-index: 999;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }

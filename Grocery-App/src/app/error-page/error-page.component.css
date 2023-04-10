@@ -1,0 +1,19 @@
+
+body {
+    font-family: sans-serif;
+    color: #333;
+    text-align: center;
+    padding-top: 50px;
+}
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+}
+a {
+    color: #007bff;
+    text-decoration: none;
+}

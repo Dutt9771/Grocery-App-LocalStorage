@@ -1,0 +1,238 @@
+<!-- Display the products that belong to the selected category -->
+<img
+  class="rounded mx-auto d-block img-fluid bg-light"
+  id="Loading"
+  src="/assets/loading_Gif.gif"
+  width="100%"
+  height="100%"
+  *ngIf="loading"
+/>
+<div class="card border-0 text-black">
+  <img
+    src="/assets/grocery_background.jpg"
+    alt=""
+    class="card-img w-100 h-auto opacity-25"
+    height="100"
+  />
+  <div
+    class="card-img-overlay text-center my-3 d-flex justify-content-center align-items-center"
+  >
+    <div>
+      <p
+        id="product_list_text"
+        class="card-title fs-1 fw-bolder"
+        *ngIf="Selected_Category; else not_category"
+      >
+        {{ Selected_Category == "all" ? "All Products" : Selected_Category }}
+      </p>
+      <ng-template #not_category>
+        <p id="product_list_text" class="card-title fs-1 fw-bolder">
+          {{ category ? category : "Category" }}
+        </p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-end m-2">
+  <div class="btn-group">
+    <button
+      type="button"
+      class="btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <img src="https://img.icons8.com/fluency/48/null/filter--v1.png" />
+    </button>
+    <form>
+      <ul class="dropdown-menu">
+        <li *ngFor="let category of categories_Arr">
+          <button
+            class="dropdown-item"
+            type="button"
+            name="category"
+            [value]="category"
+            (click)="Filter_Category(category)"
+          >
+            {{ category ? category : "Category" }}
+          </button>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>
+<!-- https://1f85-117-217-127-105.ngrok-free.app/api/v1/product-images/{{
+  product.product.avatar_image
+}} -->
+<div class="container">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+    <div class="col" *ngFor="let product of filteredItems; let i = index">
+      <div class="card bg-white p-2 m-2">
+        <img
+          class="rounded mx-auto d-block"
+          src=""
+          alt=""
+          [routerLink]="[
+            '/front/catalogue/product-details/',
+            product.product.id,
+            product.product.slug
+          ]"
+          width="120"
+          height="120"
+        />
+        <div class="card-body">
+          <small>{{
+            product.product.title ? product.product.title : "Product Title"
+          }}</small>
+          <h4>
+            {{
+              product.product.weight ? product.product.weight : "Product Weight"
+            }}
+          </h4>
+          <!-- <ul class="card-body rating" data-mdb-toggle="rating"> <i class="fas
+                    fa-star fa-sm text-primary" title="Bad"></i> <i class="fas fa-star fa-sm
+                    text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"
+                    title="OK"></i> <i class="fas fa-star fa-sm text-primary" title="Good"></i> <i
+                    class="far fa-star fa-sm text-primary" title="Excellent"></i> <br></ul> -->
+          <p>
+            {{
+              product.product.description
+                ? product.product.description
+                : "Product Description"
+            }}
+          </p>
+          <p>
+            {{
+              product.product.short_description
+                ? product.product.short_description
+                : "Product Description"
+            }}
+          </p>
+          <div class="text-center">
+            <i class="m-2 fw-bolder">{{
+              product.product.amount | currency : "INR"
+            }}</i>
+            <!-- <i class="text-decoration-line-through m-4">{{product.price |
+                        currency}}</i> -->
+            <button
+              class="btn btn-outline-light"
+              (click)="Add_cart(i, product.product)"
+            >
+              <img src="/assets/Cart-btn.png" alt="" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!Search;else Search_Here">
+
+  <div class="container" *ngIf="(category_path == 'all')">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+    <div class="col" *ngFor="let product of allProducts; let i = index">
+      <div class="card bg-white p-2 m-2">
+        <img
+          class="rounded mx-auto d-block"
+          src=""
+          alt=""
+          [routerLink]="[
+            '/front/catalogue/product-details/',
+            product.id,
+            product.slug
+          ]"
+          width="120"
+          height="120"
+          />
+        <div class="card-body">
+          <small>{{ product.title ? product.title : "Product Title" }}</small>
+          <h4>{{ product.weight ? product.weight : "Product Weight" }}</h4>
+          <!-- <ul class="card-body rating" data-mdb-toggle="rating"> <i class="fas
+                    fa-star fa-sm text-primary" title="Bad"></i> <i class="fas fa-star fa-sm
+                    text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"
+                    title="OK"></i> <i class="fas fa-star fa-sm text-primary" title="Good"></i> <i
+                    class="far fa-star fa-sm text-primary" title="Excellent"></i> <br></ul> -->
+          <p>
+            {{
+              product.description ? product.description : "Product Description"
+            }}
+          </p>
+          <p>
+            {{
+              product.short_description
+                ? product.short_description
+                : "Product Description"
+            }}
+          </p>
+          <div class="text-center">
+            <i class="m-2 fw-bolder">{{ product.amount | currency : "INR" }}</i>
+            <!-- <i class="text-decoration-line-through m-4">{{product.price |
+                        currency}}</i> -->
+            <button
+              class="btn btn-outline-light"
+              (click)="Add_cart(i, product)"
+            >
+              <img src="/assets/Cart-btn.png" alt="" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>
+<ng-template #Search_Here>
+  <div class="container" *ngIf="(category_path == 'all')">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+    <div class="col" *ngFor="let product of Search_Arr; let i = index">
+      <div class="card bg-white p-2 m-2">
+        <img
+          class="rounded mx-auto d-block"
+          src=""
+          alt=""
+          [routerLink]="[
+            '/front/catalogue/product-details/',
+            product.id,
+            product.slug
+          ]"
+          width="120"
+          height="120"
+          />
+        <div class="card-body">
+          <small>{{ product.title ? product.title : "Product Title" }}</small>
+          <h4>{{ product.weight ? product.weight : "Product Weight" }}</h4>
+          <!-- <ul class="card-body rating" data-mdb-toggle="rating"> <i class="fas
+                    fa-star fa-sm text-primary" title="Bad"></i> <i class="fas fa-star fa-sm
+                    text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"
+                    title="OK"></i> <i class="fas fa-star fa-sm text-primary" title="Good"></i> <i
+                    class="far fa-star fa-sm text-primary" title="Excellent"></i> <br></ul> -->
+          <p>
+            {{
+              product.description ? product.description : "Product Description"
+            }}
+          </p>
+          <p>
+            {{
+              product.short_description
+                ? product.short_description
+                : "Product Description"
+            }}
+          </p>
+          <div class="text-center">
+            <i class="m-2 fw-bolder">{{ product.amount | currency : "INR" }}</i>
+            <!-- <i class="text-decoration-line-through m-4">{{product.price |
+                        currency}}</i> -->
+            <button
+              class="btn btn-outline-light"
+              (click)="Add_cart(i, product)"
+            >
+              <img src="/assets/Cart-btn.png" alt="" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>

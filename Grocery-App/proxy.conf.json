@@ -1,0 +1,8 @@
+{
+    "/api": {
+      "target": "https://beea-117-217-127-105.in.ngrok.io",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }
+  

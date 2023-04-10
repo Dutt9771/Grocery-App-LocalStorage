@@ -1,0 +1,47 @@
+<div class="card bg-body-transparent text-black">
+    <img src="/assets/grocery_background.jpg" alt="" class="card-img w-100 h-auto opacity-25" height="100" >
+    <div class="card-img-overlay text-center my-3 d-flex justify-content-center align-items-center">
+<div>
+  <p id="product_list_text"class="card-title fs-1 fw-bolder">Checkout</p>
+      </div>
+    </div>
+  </div>
+  
+ <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-5 ms-4">
+        <div class="card mt-4 ms-4">
+          <div *ngFor="let address of User_details_Obj_addresses" class="ms-4">
+            <div class="form-check mt-4">
+              
+              <input type="radio" class="form-check-input border-1 border-success" name="address" id="{{address.id}}" value="{{address.id}}"  #addressSelect (change)="selectAdd(addressSelect.value)">
+              <label class="form-check-label" for="address"><div>
+                <h5>Tag: {{address.tag}}</h5>
+                <h5>Address_line_1: {{address.address_line_1}}</h5>
+                <h5>Address_line_2: {{address.address_line_2}}</h5>
+                <h5>Area: {{address.area}}</h5>
+                <h5>Country: {{address.country}}</h5>
+                <h5>State: {{address.state}}</h5>
+                <h5>City: {{address.city}}</h5>
+              </div></label>
+           
+            </div>
+          </div>
+          <ng-container *ngIf="User_details_Obj_addresses.length==0" >
+            <h5 class="text-danger text-center fw-bolder">{{username}},Please Add Address </h5>
+          </ng-container>
+          <div class="card-body ms-4">
+            <h5 class="card-title">Review Order</h5>
+            <h6 class="card-subtitle mb-2 text-muted">By placing an order you agree to our Terms And Conditions</h6>
+            <p class="card-text">Payment Method : <b>Cash On Delivery</b></p>
+            <p class="card-text">Grand Total : <b>{{cartTotal | currency:'INR'}}</b></p>
+          </div>
+          <div class="d-flex justify-content-center mb-2"> 
+            <button class="btn btn-outline-secondary m-1" (click)="Cancel_Checkout()">Cancel</button>
+            <button class="btn btn-success m-1" (click)="Place_Order()">Place an Order</button>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  

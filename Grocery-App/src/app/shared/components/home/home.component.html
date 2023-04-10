@@ -1,0 +1,238 @@
+<!-- Carousel wrapper -->
+<!-- <img class="rounded mx-auto d-block img-fluid bg-light " src="/assets/LoadingGif.gif" width="100%" height="100%" *ngIf="loading"> -->
+
+<div
+  id="carouselExampleAutoplaying"
+  class="carousel slide"
+  data-bs-ride="carousel"
+>
+  <div class="carousel-indicators">
+    <button
+      type="button"
+      data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide-to="1"
+      aria-label="Slide 2"
+    ></button>
+  </div>
+  <div class="carousel-inner rounded-5 shadow-4-strong">
+    <div class="carousel-item active">
+      <img src="/assets/Carousel1.jpg" class="d-block w-100" />
+    </div>
+    <div class="carousel-item">
+      <img src="/assets/Carousel2.jpg" class="d-block w-100" />
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleAutoplaying"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleAutoplaying"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<div>
+  <br />
+  <br />
+
+  <app-category></app-category>
+  <app-products></app-products>
+</div>
+<br />
+
+<!-- Footer -->
+
+<div class="main-container">
+  <div class="container text-center text-md-start mt-5">
+    <div class="row mt-5 mb-5">
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h3>
+          <b>Top Sells</b>
+        </h3>
+        <br />
+        <ng-container *ngFor="let item of topsells; let i = index">
+          <div class="d-flex">
+            <div class="flex-shrink-0">
+              <img
+                class="image-container"
+                [src]="item.source"
+                alt=""
+                style="max-height: 100px; max-width: 100px"
+              />
+            </div>
+            <div class="flex-grow-1 ms-3 mt-auto mb-auto">
+              <div class="name-container">{{ item.name }}</div>
+              <!-- <div class="star-rating">
+                    <i (click)="rate(1)" [class]="rating >= 1 ? 'fas fa-star' : 'far fa-star'"></i>
+                    <i (click)="rate(2)" [class]="rating >= 2 ? 'fas fa-star' : 'far fa-star'"></i>
+                    <i (click)="rate(3)" [class]="rating >= 3 ? 'fas fa-star' : 'far fa-star'"></i>
+                    <i (click)="rate(4)" [class]="rating >= 4 ? 'fas fa-star' : 'far fa-star'"></i>
+                    <i (click)="rate(5)" [class]="rating >= 5 ? 'fas fa-star' : 'far fa-star'"></i>
+                  </div> -->
+              <ul class="card-body rating mb-1" data-mdb-toggle="rating">
+                <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+                <i class="fas fa-star fa-sm text-primary" title="OK"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+                <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+              </ul>
+              <div class="details">{{ item.price | currency }}</div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h3>
+          <b>Top Rated</b>
+        </h3>
+        <br />
+        <ng-container *ngFor="let item of toprated">
+          <div class="d-flex">
+            <div class="flex-shrink-0">
+              <img
+                class="image-container"
+                [src]="item.source"
+                alt=""
+                style="max-height: 100px; max-width: 100px"
+              />
+            </div>
+            <div class="flex-grow-1 ms-3 mt-auto mb-auto">
+              <div class="name-container">{{ item.name }}</div>
+              <ul class="card-body rating mb-1" data-mdb-toggle="rating">
+                <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+                <i class="fas fa-star fa-sm text-primary" title="OK"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Excellent"></i>
+              </ul>
+              <div class="details">{{ item.price | currency }}</div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h3>
+          <b>Trending Items</b>
+        </h3>
+        <br />
+        <ng-container *ngFor="let item of trendingItems">
+          <div class="d-flex">
+            <div class="flex-shrink-0">
+              <img
+                class="image-container"
+                [src]="item.source"
+                alt=""
+                style="max-height: 100px; max-width: 100px"
+              />
+            </div>
+            <div class="flex-grow-1 ms-3 mt-auto mb-auto">
+              <div class="name-container">{{ item.name }}</div>
+              <ul class="card-body rating mb-1" data-mdb-toggle="rating">
+                <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+                <i class="fas fa-star fa-sm text-primary" title="OK"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+                <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+              </ul>
+              <div class="details">{{ item.price | currency }}</div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h3>
+          <b>Recently Added</b>
+        </h3>
+        <br />
+        <ng-container *ngFor="let item of recentlyAdded">
+          <div class="d-flex">
+            <div class="flex-shrink-0">
+              <img
+                class="image-container"
+                [src]="item.source"
+                alt=""
+                style="max-height: 100px; max-width: 100px"
+              />
+            </div>
+            <div class="flex-grow-1 ms-3 mt-auto mb-auto">
+              <div class="name-container">{{ item.name }}</div>
+              <ul class="card-body rating mb-1" data-mdb-toggle="rating">
+                <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+                <i class="fas fa-star fa-sm text-primary" title="OK"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+                <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+              </ul>
+              <div class="details">{{ item.price | currency }}</div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5 mb-5 m-3">
+  <div class="d-flex flex-row p-2">
+    <div class="d-flex justify-content-start mx-auto">
+      <div class="p-2">
+        <img
+          src="data:image/png;base64,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"
+        />
+      </div>
+      <div class="p-2">
+        <h4>Best Prices & Deals</h4>
+        <small>Don’t miss our daily amazing deals and prices</small>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center mx-auto">
+      <div class="p-2">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFhklEQVR4nO1aW4scRRT+XGR36sxuotngXkxUBGX1wQdB8MkLKpgE1OCNeIsYg4ksMTFCVpTkQZZNUDFe/4AvisQLiA/qoxg1QbObBEGIQmJAkl11LzPbVZPMkerpTWaqe3qqe2eme6U/KOiHquo6X52qcysgQ4YMGTJkyJChlWDqh6QnIWk/pPgWSoxD0SlImoMkBUWnocQvkOIrSPE6SrQOvGIZljS4eyWUeAGSfoSkMhRxpCbpHCQdhKRNYAgsGRTEICS9B0mFyELXJUNMuZrB+T6kFoxOKNrtqnWzBPcT8TeU2AJGB1IFp3sIShwJUefzlTNO70LmNkDmb0Ixtxrc2+MSVxCroMQtcMRDkPQOlDgaemz00XC6b0AqUMrfBSn+qbNjf0GKMcx3XRt5Xk2QFKOQ4kyduWfgiPVIFJKe9W5xc3HTUGK7u7uLBaMLSmyrzBmoWVuQCCRtqqOiH4FpoNFwBtYx8CcDpxhY0/B/BXElFB0IIKHcfhJKWu2NnXd3I7/TdgpPcPbaSet/K3qp8i/j3207Dk73UOU2rllAAY64L8o0VcK7Ldoa3Muy6L8TuofQUjA6IOmHAPYfiD7VIgjQ0P/0aYL4Bi2FElv9Z17ssB3OwCoG9jIwYRLAwBEGRhkYtF8PjRjr+S2uaJb+vM/cfWI9HHiKgbkAwc02zcBjtvNC0vsXXOeWXoaS3jTU7V/X7bUAAxsZKFsIv9DOM7DBem3aKSrmrlqMeOFgkO/iU2LYbihWW+682WYY6EcqIGmzsftnwMjZDGVgnyGYw8AwA71VffoY2M7AvNF3FKmApJ8MAl6zHcrAUUOobSF9XzQvRiQOpoGawESbHu2V2Q4HioZQvSF9+42+c0gcMv+EcfYj7QoDBUOo0HPNwO9VfU8gcUh623B89kcZzsDPBgF7GvS/g4FjXrsNbYeiLyIkKT5vNB0DuwNMnHaGlrXMX9H5BCUm3O/IUOK4PQHiWMP1ACsZmAwwc1MMvNpUIrRlkvR9lbYeip5PdLpvDIy9/WHorJvZsVoX1jJQqmPvm0eEEh8GrPVjMC6JNlGJ1lRcy5AUlyPujzIlA/cwcDrE8VkgogdxoOjlkA0bScGE0CT0eEJOhRChSbo76Q1rskrVQqt7AyIUA/cmdWSbfKnEJuIsAyvafWnXMysTbjkrllmxJmKvZyKrSXil4WBtiu3N9mdoNxi4k4HjXru9Qd89BgGHIv1sITdwMWZ5A0mDgT9sXVsGBsyQONLPtIrXEJB7FEmD/bFAXwOnKV4wNN91jS9o4/wVSBrsD4fr5hC9nEB13wnrH0mxz7j1DyINYGDMEEonPXZUR4U6RNZ5AgZkrISItkxSTBoEPI00gIFBBmZjpMSmrTPEuiBTe/mdtc1YxUMxd7XrgFhCZ3kjJkXL1klRt4hKswYBY2gZlHj+QkFC0gcRSZi2TIbaZ4S1ba8Vfqq1l5+iE3HjAu84jHpFEFPw8RiFkV0BLu9mtBRSP3JKQWlMiocDiqTftf71iOMWR2eMHxfhiAfbRkBF+Hmf6jud16MtcMT6wBJ1e8rjI77nM5IkVC7UzW5ToZR0O2CTNtePIjwSTlqFvu47Ivo04MyX3cx1IlBiq08TKuo44z2RyTXniUx+p8/ULey8pI1IFI4+DsadUO2QaJscp3CpH1Zp91bPETz3JFQugbR5vepsdeIkSE11pOY+oMw9AiVudUnRGsKXL/cCmZsh849XQloxHqhZF9thOJ3XIVVgdECJ5/xV5Ca2iqbtAuNSpBac7/NUd7J5gut8Hr2V7qeygREaPeMeDUmlGEKXK++RxDB4+WVY0uDeHpRoracZX7pnuPJcXt/i57w3wL9Ciq/dNJZ+TpuGZEaGDBkyZMiQAf9n/Aemyw4GxySo4QAAAABJRU5ErkJggg=="
+        />
+      </div>
+      <div class="p-2">
+        <h4>Refundable</h4>
+        <small>If your items have damage we agree to refund it</small>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end mx-auto">
+      <div class="p-2">
+        <img
+          src="data:image/png;base64,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"
+        />
+      </div>
+      <div class="p-2">
+        <h4>Free delivery</h4>
+        <small>Do purchase over $50 and get free delivery anywhere</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="star-ratings">
+    <a *ngFor="let star of stars" (click)="rate(star,id)">
+      <i class="fa fa-star" [class.fa-star-o]="rating < star"></i>
+    </a>
+  </div> -->

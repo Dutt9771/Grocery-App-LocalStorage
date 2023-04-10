@@ -1,0 +1,251 @@
+<form
+  class="row g-3 m-lg-5 d-flex justify-content-center"
+  [formGroup]="User_Address_Add"
+  (ngSubmit)="User_Address_Add_click()"
+  novalidate
+>
+  <div class="row g-2 justify-content-center">
+    <div class="col-md-10">
+      <label for="address_line_1" class="form-label">Address 1</label>
+      <input
+        type="text"
+        formControlName="address_line_1"
+        class="form-control"
+        id="address_line_1"
+        placeholder="Enter Address"
+      />
+
+      <div
+        *ngIf="
+          get_User_Address.address_line_1.touched &&
+          get_User_Address.address_line_1.invalid
+        "
+        class="text-danger"
+      >
+        <div
+          *ngIf="get_User_Address.address_line_1.errors?.['required']"
+          class="text-danger"
+        >
+          address_line_1 Must Required
+        </div>
+        <div
+          *ngIf="get_User_Address.address_line_1.errors?.['minlength']"
+          class="text-danger"
+        >
+          address_line_1 MustShould be 5 Character
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row g-2 justify-content-center">
+    <div class="col-md-10">
+      <label for="address_line_2" class="form-label">Address 2</label>
+      <input
+        type="text"
+        formControlName="address_line_2"
+        class="form-control"
+        id="address_line_2"
+        placeholder="Enter Address"
+      />
+      <div
+        *ngIf="
+          get_User_Address.address_line_2.touched &&
+          get_User_Address.address_line_2.invalid
+        "
+        class="text-danger"
+      >
+        <div
+          *ngIf="get_User_Address.address_line_2.errors?.['required']"
+          class="text-danger"
+        >
+          address_line_1 Must Required
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-2 justify-content-center">
+    <div class="col-md-4">
+      <label for="country" class="form-label">Country</label>
+      <select
+        formControlName="country"
+        class="form-select"
+        id="country"
+        placeholder="Enter Country"
+      >
+        <option value="" disabled selected>Select Country</option>
+        <option *ngFor="let country of countries" [value]="country.shortName">
+          {{ country.name }}
+        </option>
+      </select>
+      <div
+        *ngIf="
+          get_User_Address.country.touched && get_User_Address.country.invalid
+        "
+        class="text-danger"
+      >
+        <div
+          *ngIf="get_User_Address.country.errors?.['required']"
+          class="text-danger"
+        >
+          Country Must Required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="inputState" class="form-label">State</label>
+      <select
+        id="inputState"
+        formControlName="state"
+        class="form-select"
+        name="inputState"
+      >
+        <option value="" disabled selected>Select State</option>
+        <option *ngFor="let state of states" [value]="state">
+          {{ state }}
+        </option>
+      </select>
+      <div
+        *ngIf="get_User_Address.state.touched && get_User_Address.state.invalid"
+        class="text-danger"
+      >
+        <div
+          *ngIf="get_User_Address.state.errors?.['required']"
+          class="text-danger"
+        >
+          State Must Required
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="inputCity" class="form-label">City</label>
+      <select formControlName="city" class="form-select" id="inputCity">
+        <option value="" disabled selected>Select City</option>
+        <option *ngFor="let city of City" [value]="city">{{ city }}</option>
+      </select>
+      <div
+        *ngIf="get_User_Address.city.touched && get_User_Address.city.invalid"
+        class="text-danger"
+      >
+        <div
+          *ngIf="get_User_Address.city.errors?.['required']"
+          class="text-danger"
+        >
+          City Must Required
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row g-2 justify-content-center">
+    <div class="col-md-3">
+      <label for="area" class="form-label">Area</label>
+      <input
+        type="text"
+        formControlName="area"
+        class="form-control"
+        id="area"
+        placeholder="Enter Area"
+      />
+      <div
+        *ngIf="get_User_Address.area.touched && get_User_Address.area.invalid"
+        class="text-danger"
+      >
+        <div
+          *ngIf="get_User_Address.area.errors?.['required']"
+          class="text-danger"
+        >
+          Area Must Required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <label for="postal_code" class="form-label">postal_code</label>
+      <input
+        type="text"
+        formControlName="postal_code"
+        class="form-control"
+        id="postal_code"
+        placeholder="Enter Postalcode"
+      />
+      <div
+        *ngIf="
+          get_User_Address.postal_code.touched &&
+          get_User_Address.postal_code.invalid
+        "
+        class="text-danger"
+      >
+        <div
+          *ngIf="get_User_Address.postal_code.errors?.['required']"
+          class="text-danger"
+        >
+          postal_code Must Required
+        </div>
+        <div
+          *ngIf="get_User_Address.postal_code.errors?.['maxlength']"
+          class="text-danger"
+        >
+          postal_code Must have 6 digits
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <label for="landmark" class="form-label">landmark</label>
+      <input
+        type="text"
+        formControlName="landmark"
+        class="form-control"
+        id="landmark"
+        placeholder="Enter landmark"
+      />
+      <div
+        *ngIf="
+          get_User_Address.landmark.touched && get_User_Address.landmark.invalid
+        "
+        class="text-danger"
+      >
+        <div
+          *ngIf="get_User_Address.landmark.errors?.['required']"
+          class="text-danger"
+        >
+          landmark Must Required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="tag" class="form-label">Tag</label>
+      <select
+        formControlName="tag"
+        class="form-select"
+        id="tag"
+        placeholder="Enter Tag"
+      >
+        <option value="" disabled selected>Select Tag</option>
+        <option value="HOME">HOME</option>
+        <option value="OFFICE">OFFICE</option>
+        <option value="OTHER">OTHER</option>
+      </select>
+      <div
+        *ngIf="get_User_Address.tag.touched && get_User_Address.tag.invalid"
+        class="text-danger"
+      >
+        <div
+          *ngIf="get_User_Address.tag.errors?.['required']"
+          class="text-danger"
+        >
+          tag Must Required
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="d-flex justify-content-center" *ngIf="!User_Address_Add.valid">
+  <span class="text-danger">Please Enter all Details</span>
+</div>  -->
+  <div class="d-flex justify-content-center">
+    <!-- [disabled]="!User_Address_Add.valid" -->
+    <button type="submit" class="btn btn-primary col-md-2 text-center">
+      {{ Address_btn }}
+    </button>
+  </div>
+</form>

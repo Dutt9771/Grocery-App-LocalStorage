@@ -1,0 +1,68 @@
+/* .carousel-inner > .item > img {
+    width:640px;
+    height:360px;
+  }
+hr{
+  width:20%;
+
+  border:3px solid rgb(36, 168, 0)
+
+}
+hr:active{
+  border-color: red;
+  border-width: 5px;
+
+}
+.card-title {
+  color: #db0075;
+}
+.card-text {
+  color: #17E6E6;
+}
+.list-inline-item {
+  color: #ffd700
+}
+.price {
+  color: #9B1B30;
+}
+.btn-pink {
+  background-color: #fcb2b2 !important;
+} */
+
+h3 {
+  border-bottom: 2px solid lightgrey;
+}
+h3:after {
+  content: '';
+  display: block;
+  border-bottom: 2px solid green;
+  margin-bottom: -2px;
+  max-width: 100px;
+}
+
+.star-rating {
+  font-size: 14px;
+}
+
+.star-rating i {
+  color: rgb(225, 225, 16);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-rating i:hover {
+  color: rgb(84, 84, 84);
+}
+
+/* .star-ratings a:hover i {
+  color: orange;
+}
+
+.fa-star {
+  color: orange;
+}
+
+.fa-star-o {
+  color: lightgrey;
+} */
+

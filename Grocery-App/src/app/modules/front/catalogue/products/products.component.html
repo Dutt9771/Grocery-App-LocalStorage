@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg bg-body-transparent">
+  <div class="container">
+    <h2 class="navbar-brand m-3" href="#">Explore Products</h2>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <!-- <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link link-primary" aria-current="page" >All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-primary" >Vegetables</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-primary" href="#">Fruits</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-primary" href="#">Coffee And Teas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-primary" href="#">Meat</a>
+            </li>
+        </ul> -->
+    </div>
+  </div>
+</nav>
+
+<carousel
+  [autoplay]="true"
+  [height]="430"
+  [autoplayInterval]="3000"
+  [pauseOnHover]="true"
+  class="container"
+>
+  <div
+    class="carousel-cell"
+    *ngFor="let product of filteredItems; let i = index"
+  >
+    <div class="card bg-white p-2 m-2 w-auto">
+      <img
+        class="rounded mx-auto d-block"
+        src="/assets/tatasault.png"
+        alt=""
+        width="175"
+        height="100"
+        [routerLink]="[
+          '/front/catalogue/product-details',
+          product.id,
+          product.slug
+        ]"
+      />
+      <div class="card-body text-left">
+        <small>{{ product.title  }}</small>
+        <!-- <h4>{{product.weight}}</h4> -->
+        <ul class="rating text-left" data-mdb-toggle="rating">
+          <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+          <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+          <i class="fas fa-star fa-sm text-primary" title="OK"></i>
+          <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+          <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+          <br />
+        </ul>
+        <small>{{ product.short_description  }}</small>
+        <div class="text-center">
+          <i class="m-2">{{ product.amount | currency : "INR"  }}</i>
+          <!-- <i class="text-decoration-line-through m-2">{{product.price | currency}}</i> -->
+          <button class="btn btn-outline-light" (click)="Add_cart(i, product)">
+            <img class="w-auto h-auto" src="/assets/Cart-btn.png" alt="" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</carousel>

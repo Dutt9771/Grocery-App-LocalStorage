@@ -1,0 +1,22 @@
+
+<div class="card border-0 text-black">
+  <img src="/assets/grocery_background.jpg" alt="" class="card-img w-100 h-auto opacity-25" height="100" >
+  <div class="card-img-overlay text-center my-3 d-flex justify-content-center align-items-center">
+<div>
+<p id="product_list_text"class="card-title fs-1 fw-bolder" >{{Title}}</p>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-start">
+  <!-- <p>Current path: {{ currentPath }}</p> -->
+<nav class="nav flex-column mt-5 my-3 w-30">
+
+    <a class="nav-link" aria-current="page" routerLink="edit-profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Edit Profile</a>
+    <a class="nav-link" routerLink="orders" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Orders</a>
+    <a class="nav-link" routerLink="manageaddress" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Manage Addresses</a>
+    <a class="nav-link" routerLink="addaddress" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">ADD Addresses</a>
+    <a class="nav-link" routerLink="changepassword"routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Change Password</a>
+    <a class="nav-link" (click)="logout()" *ngIf="Login_User">Logout</a>
+      </nav>
+        <router-outlet></router-outlet>
+        </div>
