@@ -1,6 +1,7 @@
 import { group } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
@@ -14,7 +15,7 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 export class CartComponent {
   cartItems:any[]=[]
   loading:boolean=true
-  constructor(private _productservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
+  constructor( private spinner: NgxSpinnerService,private _productservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
    
   }
   cart:any=[]
@@ -47,9 +48,12 @@ username:string
 // console.log("dateFormat",JSON.stringify(this.dateFormat));
     this.filteredItems=this._productservice.getProducts()
   
+    this.spinner.show();
+
     setTimeout(() => {
-      this.loading=false
-    }, 1000);
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 1500);
     let Merge = JSON.parse(localStorage.getItem('Cart'));
     if(Merge && this.User_Details){
 
@@ -58,6 +62,7 @@ username:string
         this.Customer_Cart=this.Find_Customer_Cart.items
         console.log("Find_Customer_Cart",this.Find_Customer_Cart)
         console.log("Customer_Cart",this.Customer_Cart)
+        this.Check_Guest_User()
         
         this.Category_wise_Filter(this.Customer_Cart)
       }
@@ -65,7 +70,14 @@ username:string
     else{
         console.log("this.Guest_Cart[0].items",this.Guest_Cart[0].items)
         this.Category_wise_Filter(this.Guest_Cart[0].items)
+        this.Check_Guest_User()
             }
+  }
+  Guest_User:boolean=false
+  Check_Guest_User(){
+    if(!this.Guest_Cart[0].items.length || !this.Customer_Cart.length){
+      this.Guest_User=true
+    }
   }
   Date(){
     let date = new Date()
@@ -171,21 +183,40 @@ var getDay = date.toLocaleString("default", { day: "2-digit" });
   }
   cartItemCount:any
   clickedItem:any=[]
-
-  DelectProduct(id:any,index:any,productindex:any,product){
-    
-    this._cartservice.Delete_Cart_LocalStorage(this.User_Details.username,product)
-    this.groupedProducts[index].cart.splice(productindex,1)
-    this._cartservice.getItemCount()
-      this._cartservice.Subtotal()
- 
+  txt:boolean
+  prompt_Fun(txt:any) {
+    if (confirm(txt)) {
+      this.txt =true
+    } else {
+      this.txt = false
+    }
   }
-  product:any
-  ProductArr=[]
-  get_cart_data(){
+  DelectProduct(id:any,index:any,productindex:any,product){
+    this.prompt_Fun("You Want to Delete "+product.title)
+    if(this.txt){
+
+      if(this.username){
+        
+        this.Check_Guest_User()
+        this._cartservice.Delete_Cart_LocalStorage(this.User_Details.username,product)
+        this.groupedProducts[index].cart.splice(productindex,1)
+        this._cartservice.getItemCount()
+        this._cartservice.Subtotal()
+      }else{
+        this._cartservice.Delete_Guest_cart()
+        this.groupedProducts[index].cart.splice(productindex,1)
+        this._cartservice.Subtotal()
+        this.Check_Guest_User()
+        this._cartservice.getItemCount()
+      }
+    }
+    }
+    product:any
+    ProductArr=[]
+    get_cart_data(){
     for(let i=0;i<this.Find_Customer_Cart.items.length;i++){
       console.log("Cart Length",this.Find_Customer_Cart.items.length)
-//  console.log("this.cart.length")
+      //  console.log("this.cart.length")
   this.product={
     "product_id":  this.Find_Customer_Cart.items[i].id,
     "product_name": this.Find_Customer_Cart.items[i].title,

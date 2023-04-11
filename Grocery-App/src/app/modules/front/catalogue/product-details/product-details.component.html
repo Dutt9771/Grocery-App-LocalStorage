@@ -1,12 +1,14 @@
 <!-- Display the products that belong to the selected category -->
-<img
+<!-- <img
   class="rounded mx-auto d-block img-fluid bg-light"
   src="/assets/loading_Gif.gif"
   id="Loading"
   width="100%"
   height="100%"
   *ngIf="loading"
-/>
+/> -->
+<ngx-spinner size = "medium" template="<img src='assets/loading_ball.gif' />" [fullScreen] = "true"><p style="color: white" ><br/> Loading... </p></ngx-spinner>
+
 <div class="card border-0 text-black">
   <img
     src="/assets/grocery_background.jpg"

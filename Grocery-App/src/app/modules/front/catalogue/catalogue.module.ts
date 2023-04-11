@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductsComponent } from './products/products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AllCategoryComponent } from './all-category/all-category.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AllCategoryComponent } from './all-category/all-category.component';
     CatalogueRoutingModule,
     IvyCarouselModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule.forRoot({type:"ball-scale-multiple"})
     
   ],
   exports:[CategoryComponent,ProductsComponent]

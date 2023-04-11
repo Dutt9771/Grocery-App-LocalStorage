@@ -100,11 +100,11 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       this.router.navigate(["/front/catalogue/products-list",'all'])
     }
 
-  //   Category_Select:any
-  //   Select_Category(Category){
-  //     this.Category_Select=Category
-  //     console.log("Category",Category)
-  //         }
+    Category_Select:any
+    Select_Category(Category){
+      this.Category_Select=Category
+      console.log("Category",Category)
+          }
 
   //   onSubmit(search) {
   //     console.log("Seach",search)

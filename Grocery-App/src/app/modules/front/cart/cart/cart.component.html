@@ -1,10 +1,12 @@
-<img
+<!-- <img
   class="rounded mx-auto d-block img-fluid bg-light"
   src="/assets/loading_Gif.gif"
   width="100%"
   height="100%"
   *ngIf="loading"
-/>
+/> -->
+<ngx-spinner size = "medium" template="<img src='assets/loading_ball.gif' />" [fullScreen] = "true"><p style="color: white" ><br/> Loading... </p></ngx-spinner>
+
 <div class="card bg-body-transparent text-black">
   <img
     src="/assets/grocery_background.jpg"
@@ -206,10 +208,16 @@
 </div>
 
 
+<!-- <div
+  class="table-responsive container d-flex justify-content-end mt-3 mb-3"
+  *ngIf="Customer_Cart.length != 0 && Subtotal()"
+> -->
+
 <div
   class="table-responsive container d-flex justify-content-end mt-3 mb-3"
   *ngIf="Customer_Cart.length != 0 && Subtotal()"
->
+> 
+
   <table>
     <tr>
       <td class="fs-6">Subtotal:</td>

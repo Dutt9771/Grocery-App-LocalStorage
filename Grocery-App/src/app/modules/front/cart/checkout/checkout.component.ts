@@ -146,12 +146,22 @@ Showcart(){
 }
 
 
-  
+txt:boolean
+prompt_Fun(txt:any) {
+  if (confirm(txt)) {
+    this.txt =true
+  } else {
+    this.txt = false
+  }
+}
 
 Place_Order(){
+  this.prompt_Fun("You Want to Place Order")
   // this.payment_status=this.encryption(this.status)
-  if(this.billing_address_id){
+  if(this.txt){
 
+    if(this.billing_address_id){
+      
 
   console.log("order_status",this.order_status)
   console.log("delivery_address_id",this.delivery_address_id)
@@ -203,6 +213,7 @@ if(this.Login_User){
 }
 else{
   this.toastr.error("Please Select Address");
+}
 }
 }
 

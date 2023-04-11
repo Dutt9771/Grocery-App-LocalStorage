@@ -11,6 +11,7 @@ import { Item } from 'src/app/shared/Models/item';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 import { CartService } from '../../services/cart/cart.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,8 @@ export class HomeComponent {
     private _ProductsService: ProductsService,
     private renderer: Renderer2,
     private router: Router,
-    private _cartservice: CartService
+    private _cartservice: CartService,
+    private spinner: NgxSpinnerService
   ) {}
   // loading=true;
   topsells: any;
@@ -42,8 +44,14 @@ export class HomeComponent {
     this._cartservice.Guest_cart_Generate()
     this._cartservice.getItemCount()
       this._cartservice.Subtotal()
+    // setTimeout(() => {
+    //   this.loading=false
+    // }, 1500);
+    this.spinner.show();
+
     setTimeout(() => {
-      this.loading=false
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
     }, 1500);
 
     this.topsells = this._ProductsService.Top_Sells();

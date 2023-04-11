@@ -1,18 +1,21 @@
 <!-- Display the products that belong to the selected category -->
-<img
+<!-- <img
   class="rounded mx-auto d-block img-fluid bg-light"
   id="Loading"
   src="/assets/loading_Gif.gif"
   width="100%"
   height="100%"
   *ngIf="loading"
-/>
+/> -->
+<ngx-spinner size = "medium" template="<img src='assets/loading_ball.gif' />" [fullScreen] = "true"><p style="color: white" ><br/> Loading... </p></ngx-spinner>
+
 <div class="card border-0 text-black">
   <img
     src="/assets/grocery_background.jpg"
     alt=""
     class="card-img w-100 h-auto opacity-25"
     height="100"
+    style="cursor: pointer;"
   />
   <div
     class="card-img-overlay text-center my-3 d-flex justify-content-center align-items-center"
@@ -72,23 +75,30 @@
           class="rounded mx-auto d-block"
           src="/assets/tatasault.png"
           alt=""
-          [routerLink]="[
-            '/front/catalogue/product-details/',
-            product.product.id,
-            product.product.slug
-          ]"
+          [routerLink] = "['/front/catalogue/product-details/', product.product.id, product.product.slug]"
+          style="cursor: pointer;"
           width="120"
           height="120"
         />
         <div class="card-body">
-          <small>{{
+          <small [routerLink]="[
+          '/front/catalogue/product-details/',
+          product.product.id,
+          product.product.slug
+        ]"
+        style="cursor: pointer;">{{
             product.product.title ? product.product.title : "Product Title"
           }}</small>
-          <h4>
+          <!-- <h4 [routerLink]="[
+          '/front/catalogue/product-details/',
+          product.product.id,
+          product.product.slug
+        ]"
+        style="cursor: pointer;">
             {{
               product.product.weight ? product.product.weight : "Product Weight"
             }}
-          </h4>
+          </h4> -->
           <!-- <ul class="card-body rating" data-mdb-toggle="rating"> <i class="fas
                     fa-star fa-sm text-primary" title="Bad"></i> <i class="fas fa-star fa-sm
                     text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"
@@ -142,12 +152,13 @@
             product.id,
             product.slug
           ]"
+          style="cursor: pointer;"
           width="120"
           height="120"
           />
         <div class="card-body">
           <small>{{ product.title ? product.title : "Product Title" }}</small>
-          <h4>{{ product.weight ? product.weight : "Product Weight" }}</h4>
+          <!-- <h4>{{ product.weight ? product.weight : "Product Weight" }}</h4> -->
           <!-- <ul class="card-body rating" data-mdb-toggle="rating"> <i class="fas
                     fa-star fa-sm text-primary" title="Bad"></i> <i class="fas fa-star fa-sm
                     text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"
@@ -196,12 +207,13 @@
             product.id,
             product.slug
           ]"
+          style="cursor: pointer;"
           width="120"
           height="120"
           />
         <div class="card-body">
           <small>{{ product.title ? product.title : "Product Title" }}</small>
-          <h4>{{ product.weight ? product.weight : "Product Weight" }}</h4>
+          <!-- <h4>{{ product.weight ? product.weight : "Product Weight" }}</h4> -->
           <!-- <ul class="card-body rating" data-mdb-toggle="rating"> <i class="fas
                     fa-star fa-sm text-primary" title="Bad"></i> <i class="fas fa-star fa-sm
                     text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"

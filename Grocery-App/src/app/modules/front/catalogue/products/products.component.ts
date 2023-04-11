@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
@@ -14,7 +15,8 @@ export class ProductsComponent {
     private _cartservice: CartService,
     private productservice: ProductsService,
     private toastr: ToastrService,
-    private route: Router
+    private route: Router,
+ 
   ) {}
   filteredItems: any = [];
   Customer_Id: number;
@@ -105,7 +107,11 @@ export class ProductsComponent {
         this.filteredItems[i],
         this.product_quantity
       );
+      if(!this.User_Details){
             this._cartservice.Guest_User(this.ProductAddobj)
+            this._cartservice.getItemCount();
+            this._cartservice.Subtotal();
           }
+        }
   }
 }

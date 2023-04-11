@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 export class AllCategoryComponent {
   constructor(
     private router: Router,
-    private productservice: ProductsService
+    private productservice: ProductsService,
+    private spinner: NgxSpinnerService
   ) {}
   Product_Arr: any;
   ngOnInit() {
@@ -33,9 +35,12 @@ export class AllCategoryComponent {
           if (Category_Res.data) {
             console.log('Category_Res', Category_Res.data);
             this.grocery_items = Category_Res.data;
+            this.spinner.show();
+
             setTimeout(() => {
-              this.loading = false;
-            }, 1000);
+              /** spinner ends after 5 seconds */
+              this.spinner.hide();
+            }, 1500);
           }
         }
       },

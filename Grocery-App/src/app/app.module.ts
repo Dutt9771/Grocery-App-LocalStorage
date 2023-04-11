@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule,FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +26,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatFormFieldModule} from '@angular/material/form-field'
 import { CookieService } from 'ngx-cookie-service';
 import { FocusformDirective } from './shared/directives/focusform.directive';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule, ToastNotificationConfigModule } from '@costlydeveloper/ngx-awesome-popup';
+
 
 @NgModule({
     declarations: [
@@ -65,11 +68,12 @@ import { FocusformDirective } from './shared/directives/focusform.directive';
         [CookieService]
     ],
     bootstrap: [AppComponent],
-    schemas: [],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        NgxSpinnerModule.forRoot({type:"ball-scale-multiple"}),
         ToastrModule.forRoot({
             timeOut: 3000,
             positionClass: 'toast-bottom-center',
@@ -91,6 +95,10 @@ import { FocusformDirective } from './shared/directives/focusform.directive';
         MatAutocompleteModule,
         MatFormFieldModule,
         CatalogueModule,
+        NgxAwesomePopupModule.forRoot(),
+    DialogConfigModule.forRoot(),
+        ConfirmBoxConfigModule.forRoot(),
+        ToastNotificationConfigModule.forRoot()
         
     ]
 })

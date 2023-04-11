@@ -16,7 +16,7 @@
     <a class="nav-link" routerLink="manageaddress" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Manage Addresses</a>
     <a class="nav-link" routerLink="addaddress" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">ADD Addresses</a>
     <a class="nav-link" routerLink="changepassword"routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Change Password</a>
-    <a class="nav-link" (click)="logout()" *ngIf="Login_User">Logout</a>
+    <a class="nav-link" (click)="logout()" *ngIf="Login_User" style="cursor: pointer;">Logout</a>
       </nav>
         <router-outlet></router-outlet>
         </div>

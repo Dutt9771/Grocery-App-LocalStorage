@@ -109,8 +109,11 @@ export class LoginComponent {
               this.Showcart();
               let Guest_Cart=JSON.parse(sessionStorage.getItem("Guest_Cart"))
               // this._cartservice.Guest_User(Guest_Cart[0].items[0])
-              this._cartservice.ADD_Cart_User_Wise_Quantity(User_details_res.data.username,Guest_Cart[0].items[0],Guest_Cart[0].items[0].id)
-              
+              if(Guest_Cart){
+
+                this._cartservice.ADD_Cart_User_Wise_Quantity(User_details_res.data.username,Guest_Cart[0].items[0],Guest_Cart[0].items[0].id)
+                sessionStorage.removeItem("Guest_Cart")
+              }
               resolve(User_details_res);
             }
           }

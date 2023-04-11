@@ -49,14 +49,16 @@ product.category.toLowerCase()]" -->
   [autoplay]="true"
   [height]="300"
   [autoplayInterval]="3000"
-  [pauseOnHover]="true"
+  [pauseOnHover]="false"
   class="container"
+  
 >
   <div class="carousel-cell" *ngFor="let product of grocery_items">
     <div
       class="card bg-transparent p-3 m-2"
       [routerLink]="['../front/catalogue/products-list/', product.slug]"
       routerLinkActive="router-link-active"
+      style="cursor: pointer;" 
     >
       <img src="/assets/grocery_sample.jpg" alt="" width="120" height="120" />
       <div class="card-body text-center">

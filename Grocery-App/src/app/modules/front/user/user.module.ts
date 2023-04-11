@@ -14,6 +14,8 @@ import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx
 import { HttpClientModule } from '@angular/common/http';
 import { AddaddressComponent } from './addaddress/addaddress.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { DialogConfigModule, NgxAwesomePopupModule } from '@costlydeveloper/ngx-awesome-popup';
 
 
 
@@ -37,6 +39,9 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     MatExpansionModule,
     HttpClientModule,
+    NgxSpinnerModule.forRoot({type:"ball-scale-multiple"}),
+    DialogConfigModule.forRoot(),
+    
   
     
   ],

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
@@ -14,8 +15,11 @@ export class OrdersComponent {
   constructor(
     private _userService: UserService,
     private _encryptionservice: EncryptionService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.spinner.show();
+  }
   PastOrderArr = [];
   encryption_order_id: any;
   username: any;
@@ -28,9 +32,12 @@ export class OrdersComponent {
             console.log('User_all_Order_res', User_all_Order_res.data.orders);
             this.PastOrderArr = User_all_Order_res.data.orders;
             this.username = User_all_Order_res.data.username;
+       
+
             setTimeout(() => {
-              this.loading = false;
-            }, 1000);
+              /** spinner ends after 5 seconds */
+              this.spinner.hide();
+            }, 1500);
             // console.log("this.PastOrderArr[0].id",this.PastOrderArr[0].id)
             // this.id=this.PastOrderArr[18].id
             // encryption(id)

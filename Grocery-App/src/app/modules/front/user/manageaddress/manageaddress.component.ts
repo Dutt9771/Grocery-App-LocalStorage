@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/shared/services/user/user.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
+import { PromptService } from 'src/app/shared/services/prompt/prompt.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-manageaddress',
@@ -16,10 +18,14 @@ export class ManageaddressComponent {
     private _userService: UserService,
     private _encryptionservice: EncryptionService,
     private route: Router,
-    private toastr: ToastrService
-  ) {}
-  User_details_Obj: any;
-  ngOnInit() {
+    private toastr: ToastrService,
+    private _promptservice:PromptService,
+    private spinner: NgxSpinnerService
+    ) {
+      this.spinner.show();
+    }
+    User_details_Obj: any;
+    ngOnInit() {
     window.scrollTo(0, 0);
     this.Show_Address();
     this.Get_User_Details();
@@ -37,6 +43,11 @@ export class ManageaddressComponent {
             console.log('User_Details', User_details_res.data);
             this.User_details_Obj = User_details_res.data;
             this.User_details_Obj_addresses = this.User_details_Obj.addresses;
+
+            setTimeout(() => {
+              /** spinner ends after 5 seconds */
+              this.spinner.hide();
+            }, 1000);
           }
         }
       },
@@ -68,22 +79,33 @@ export class ManageaddressComponent {
   Delete_Address(i, id) {
     this.encryption(i, JSON.stringify(id));
   }
-
+  txt:boolean
+  prompt_Fun(txt:any) {
+    if (confirm(txt)) {
+      this.txt =true
+    } else {
+      this.txt = false
+    }
+  }
   Delete_Encryption(encryption: any, i: any) {
-    this._userService.Delete_User_Address(encryption).subscribe({
-      next: (Edit_address_res) => {
-        if (Edit_address_res) {
-          console.log('Edit_address_res', Edit_address_res);
-          this.User_details_Obj_addresses.splice(i, 1);
-          this.toastr.success('Address Successfully Deleted');
-        }
-      },
-      error: (Edit_address_error) => {
-        console.error('Edit_address_error', Edit_address_error);
+    this.prompt_Fun("Are you Sure")
+    if(this.txt){
+
+      this._userService.Delete_User_Address(encryption).subscribe({
+        next: (Edit_address_res) => {
+          if (Edit_address_res) {
+            console.log('Edit_address_res', Edit_address_res);
+            this.User_details_Obj_addresses.splice(i, 1);
+            this.toastr.success('Address Successfully Deleted');
+          }
+        },
+        error: (Edit_address_error) => {
+          console.error('Edit_address_error', Edit_address_error);
       },
     });
   }
-
+  }
+  
   encryption(i, id) {
     this._encryptionservice.Encryption(id).subscribe({
       next: (encryption_res) => {

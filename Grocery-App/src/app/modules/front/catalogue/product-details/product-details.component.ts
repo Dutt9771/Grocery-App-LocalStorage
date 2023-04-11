@@ -1,6 +1,7 @@
 import { AnimationKeyframesSequenceMetadata } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
 import { CartService } from 'src/app/shared/services/cart/cart.service';
@@ -26,7 +27,9 @@ export class ProductDetailsComponent {
     private _productsservice: ProductsService,
     private _cartservice: CartService,
     private route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
+    
   ) {
     this.router.paramMap.subscribe((params) => {
       this.product_id = params.get('id');
@@ -46,9 +49,12 @@ export class ProductDetailsComponent {
         if (Product_Res) {
           if (Product_Res.data) {
             this.filteredItems.push(Product_Res.data);
+            this.spinner.show();
+
             setTimeout(() => {
-              this.loading = false;
-            }, 1000);
+              /** spinner ends after 5 seconds */
+              this.spinner.hide();
+            }, 1500);
             console.log('Product_Res', this.filteredItems);
           }
         }
@@ -148,8 +154,8 @@ export class ProductDetailsComponent {
   Find_Customer_Cart: any;
 
   Add_cart(product: any) {
-    console.log('ShowCartArr', this.ShowcartArr);
-    console.log('Product', product);
+    // console.log('ShowCartArr', this.ShowcartArr);
+    // console.log('Product', product);
 if(this.User_Details){
 
   
@@ -201,8 +207,12 @@ if(this.User_Details){
         );
         console.log('OBJ', this.ProductAddobj);
       }
+if(!this.User_Details){
 
-        this._cartservice.Guest_User(this.ProductAddobj)
+  this._cartservice.Guest_User(this.ProductAddobj)
+  this._cartservice.getItemCount();
+            this._cartservice.Subtotal();
+}
     }
   }
 }

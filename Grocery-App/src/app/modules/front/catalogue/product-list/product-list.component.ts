@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
@@ -28,8 +29,10 @@ export class ProductListComponent implements OnInit {
     private _cartservice: CartService,
     private router: Router,
     private toastr: ToastrService,
-    private searchService:SearchService
+    private searchService:SearchService,
+    private spinner: NgxSpinnerService
   ) {
+    this.spinner.show();
     this.selectedCategory = this.defaultCategory;
   }
   category: any;
@@ -65,9 +68,12 @@ export class ProductListComponent implements OnInit {
           if (get_all_products_res.data) {
             console.log('get_all_products_res', get_all_products_res);
             this.allProducts = get_all_products_res.data;
-            setTimeout(() => {
-              this.loading = false;
-            }, 1000);
+            
+
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 1500);
             console.log('allProducts', this.allProducts);
           }
         }
@@ -377,7 +383,11 @@ export class ProductListComponent implements OnInit {
           this.ProductAddobj,
           this.product_quantity
         );
+        if(!this.User_Details){
         this._cartservice.Guest_User(this.ProductAddobj)
+        this._cartservice.getItemCount();
+        this._cartservice.Subtotal();
+        }
       }
   }
 }

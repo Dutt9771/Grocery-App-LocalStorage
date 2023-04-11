@@ -1,11 +1,13 @@
 <!-- Carousel wrapper -->
-<img
+<!-- <img
   class="rounded mx-auto d-block img-fluid bg-light"
   src="/assets/loading_Gif.gif"
   width="100%"
   height="100%"
   *ngIf="loading"
-/>
+/> -->
+<!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#ffffff" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner> -->
+<ngx-spinner size = "medium" template="<img src='assets/loading_ball.gif' />" [fullScreen] = "true"><p style="color: white" ><br/> Loading... </p></ngx-spinner>
 <div
   id="carouselExampleAutoplaying"
   class="carousel slide"

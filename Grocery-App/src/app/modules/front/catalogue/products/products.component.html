@@ -57,11 +57,29 @@
           product.id,
           product.slug
         ]"
+        style="cursor: pointer"
       />
       <div class="card-body text-left">
-        <small>{{ product.title  }}</small>
+        <small
+          [routerLink]="[
+            '/front/catalogue/product-details',
+            product.id,
+            product.slug
+          ]"
+          style="cursor: pointer"
+          >{{ product.title }}</small
+        >
         <!-- <h4>{{product.weight}}</h4> -->
-        <ul class="rating text-left" data-mdb-toggle="rating">
+        <ul
+          class="rating text-left"
+          data-mdb-toggle="rating"
+          [routerLink]="[
+            '/front/catalogue/product-details',
+            product.id,
+            product.slug
+          ]"
+          style="cursor: pointer"
+        >
           <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
           <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
           <i class="fas fa-star fa-sm text-primary" title="OK"></i>
@@ -69,9 +87,17 @@
           <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
           <br />
         </ul>
-        <small>{{ product.short_description  }}</small>
+        <small
+          [routerLink]="[
+            '/front/catalogue/product-details',
+            product.id,
+            product.slug
+          ]"
+          style="cursor: pointer"
+          >{{ product.short_description }}</small
+        >
         <div class="text-center">
-          <i class="m-2">{{ product.amount | currency : "INR"  }}</i>
+          <i class="m-2">{{ product.amount | currency : "INR" }}</i>
           <!-- <i class="text-decoration-line-through m-2">{{product.price | currency}}</i> -->
           <button class="btn btn-outline-light" (click)="Add_cart(i, product)">
             <img class="w-auto h-auto" src="/assets/Cart-btn.png" alt="" />
